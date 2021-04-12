@@ -12,7 +12,6 @@ class Population:
         self.k = k
         self.population = []
         self.generations = 0
-        # self.target = target
         self.mutation_rate = mutation_rate
         self.best_ind = None
         self.finished = False
@@ -22,17 +21,17 @@ class Population:
         self.mating_pool = []
 
         # TODO: set up the initial version of population, fitness score
-        # for i in range(size):
-        #     ind = Individual(len(target))
-        #     ind.calc_fitness(target)
-        #
-        #     if ind.fitness > self.max_fitness:
-        #         self.max_fitness = ind.fitness
-        #
-        #     self.average_fitness += ind.fitness
-        #     self.population.append(ind)
-        #
-        # self.average_fitness /= size
+        for i in range(size):
+            ind = Individual(len(target), self.k)
+            ind.calc_fitness()
+
+            if ind.fitness > self.max_fitness:
+                self.max_fitness = ind.fitness
+
+            self.average_fitness += ind.fitness
+            self.population.append(ind)
+
+        self.average_fitness /= size
 
     def print_population_status(self):
         print("\nPopulation " + str(self.generations))
@@ -56,9 +55,15 @@ class Population:
             a, b = random.sample(self.mating_pool, 2)
             parentA, parentB = self.population[a], self.population[b]
 
-            # child1, child2 = parentA.crossover(parentB)
-            # child1.mutate(self.mutation_rate)
-            # child1.calc_fitness(self.target)
+            child = parentA.crossover(parentB)
+            child.mutate(self.mutation_rate)
+            child.calc_fitness(self.target)
+
+            # TODO: Enhancement
+            choices = [parentA, parentB, child]
+            max_idx = np.argmax([c.fitness for c in choices])
+            choices[max_idx].consistent_algorithm()
+            new_population.append(choices[max_idx])
 
         self.generations += 1
         self.population = new_population

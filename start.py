@@ -24,7 +24,16 @@ def fitness_test():
     ind = Individual(17, 5)
     ind.test()
 
+def test_normalization():
+    ind1, ind2, ind3 = Individual(7, 3), Individual(7, 3), Individual(7,3)
+    ind1.cluster = [1, 1, 2, 1, 2, 3, 3]
+    ind2.cluster = [3, 3, 1, 3, 1, 2, 2]
+    ind3.cluster = [2, 2, 3, 2, 3, 1, 1]
+    ind1.consistent_algorithm()
+    ind2.consistent_algorithm()
+    ind3.consistent_algorithm()
 
 if __name__ == "__main__":
-    fitness_test()
+    # fitness_test()
     # main()
+    test_normalization()
