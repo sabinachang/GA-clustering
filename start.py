@@ -1,4 +1,7 @@
+import logging
+import sys
 from population import Population
+from individual import Individual
 
 
 def main():
@@ -15,5 +18,13 @@ def main():
         pop.print_population_status()
 
 
+def fitness_test():
+    # output setting for debug mode
+    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+    ind = Individual(17, 5)
+    ind.test()
+
+
 if __name__ == "__main__":
-    main()
+    fitness_test()
+    # main()
