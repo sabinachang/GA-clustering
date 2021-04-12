@@ -2,6 +2,7 @@ import random
 import string
 import logging
 import sys
+import numpy as np
 
 # dummy dependency for testing
 # assume dependency is a global dictionary, so that Individual object do not need to copy it every time.
@@ -36,6 +37,7 @@ class Individual:
         self.k = k
         self.fitness = 0
         self.cluster = self.generate_random_cluster(size, k)
+        self.consistent_algorithm()
 
     def test(self):
         # test case of 17 classes in 5 different clusters.
@@ -112,6 +114,19 @@ class Individual:
             cluster.append(random.randint(1, k))
 
         return cluster
+
+    def consistent_algorithm(self):
+        S = np.zeros(len(self.cluster))
+        label = 1
+        for i in range(len(S)):
+            if S[i] == 0:
+                aux = self.cluster[i]
+                for j in range(len(S)):
+                    if self.cluster[j] == aux and S[j] == 0:
+                        self.cluster[j] = label
+                        S[j] = 1
+                label += 1
+        print(self.cluster)
 
     # The crossover function selects pairs of individuals to be mated, generating a third individual (child)
     def crossover(self, partner):
