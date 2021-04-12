@@ -2,9 +2,9 @@ from population import Population
 
 
 def main():
-    pop_size = None # TODO: file number
+    pop_size = None  # TODO: file number
     mutation_rate = 0.01
-    k = 10; # TODO: tune
+    k = 10  # TODO: tune
 
     pop = Population(pop_size, mutation_rate, k)
 

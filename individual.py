@@ -15,7 +15,10 @@ class Individual:
     # TODO: MQ score + 1
     def calc_fitness(self):
         self.fitness = None
-        
+
+
+        self.fitness += 1
+
     def __repr__(self):
         return ''.join(self.genes) + " -> fitness: " + str(self.fitness)
 
@@ -35,7 +38,15 @@ class Individual:
         child.cluster = []
         # half and half crossover
         child.cluster = self.cluster[:ind_len // 2] + partner.cluster[ind_len // 2:]
-        # TODO: odd number --> return 2 child
+
+        # TODO: odd number --> return best child
+        if ind_len % 2 != 0:
+            child.calc_fitness()
+            child2 = Individual(ind_len, self.k)
+            child2.cluster = []
+            child2.cluster = self.cluster[:ind_len // 2 + 1] + partner.cluster[ind_len // 2 + 1:]
+            child2.calc_fitness()
+            child = child2 if (child.fitness < child2.fitness) else child
 
         return child
 
