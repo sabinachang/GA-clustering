@@ -56,9 +56,15 @@ class Population:
             a, b = random.sample(self.mating_pool, 2)
             parentA, parentB = self.population[a], self.population[b]
 
-            # child1, child2 = parentA.crossover(parentB)
-            # child1.mutate(self.mutation_rate)
-            # child1.calc_fitness(self.target)
+            child = parentA.crossover(parentB)
+            child.mutate(self.mutation_rate)
+            child.calc_fitness(self.target)
+
+            # TODO: Enhancement
+            choices = [parentA, parentB, child]
+            max_idx = np.argmax([c.fitness for c in choices])
+            choices[max_idx].consistent_algorithm()
+            new_population.append(choices[max_idx])
 
         self.generations += 1
         self.population = new_population
