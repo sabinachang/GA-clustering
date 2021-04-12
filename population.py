@@ -12,7 +12,6 @@ class Population:
         self.k = k
         self.population = []
         self.generations = 0
-        # self.target = target
         self.mutation_rate = mutation_rate
         self.best_ind = None
         self.finished = False
@@ -22,17 +21,17 @@ class Population:
         self.mating_pool = []
 
         # TODO: set up the initial version of population, fitness score
-        # for i in range(size):
-        #     ind = Individual(len(target))
-        #     ind.calc_fitness(target)
-        #
-        #     if ind.fitness > self.max_fitness:
-        #         self.max_fitness = ind.fitness
-        #
-        #     self.average_fitness += ind.fitness
-        #     self.population.append(ind)
-        #
-        # self.average_fitness /= size
+        for i in range(size):
+            ind = Individual(len(target), self.k)
+            ind.calc_fitness()
+
+            if ind.fitness > self.max_fitness:
+                self.max_fitness = ind.fitness
+
+            self.average_fitness += ind.fitness
+            self.population.append(ind)
+
+        self.average_fitness /= size
 
     def print_population_status(self):
         print("\nPopulation " + str(self.generations))
