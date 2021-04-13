@@ -8,26 +8,44 @@ import pandas as pd
 # dummy dependency for testing
 # assume dependency is a global dictionary, so that Individual object do not need to copy it every time.
 # to avoid redundant calculation, only consider edge connected to classes with lager index number.
+# dependency = {
+#     0: [2, 3, 10],
+#     1: [9, 10, 11, 13, 16],
+#     2: [3, 9],
+#     3: [7],
+#     4: [12],
+#     5: [14, 16],
+#     6: [8],
+#     7: [14],
+#     8: [10],
+#     9: [15],
+#     10: [13, 16],
+#     11: [],
+#     12: [],
+#     13: [16],
+#     14: [],
+#     15: [],
+#     16: []
+# }
 dependency = {
-    0: [2, 3, 10],
-    1: [9, 10, 11, 13, 16],
-    2: [3, 9],
-    3: [7],
-    4: [12],
-    5: [14, 16],
-    6: [8],
-    7: [14],
-    8: [10],
-    9: [15],
-    10: [13, 16],
-    11: [],
-    12: [],
-    13: [16],
-    14: [],
-    15: [],
-    16: []
+    0: [1, 2, 3],
+    1: [0, 2, 3],
+    2: [0, 1, 3],
+    3: [0, 1, 2],
+    4: [5, 6, 7],
+    5: [4, 6, 7],
+    6: [4, 5, 7],
+    7: [4, 5, 6],
+    8: [9, 10, 11],
+    9: [8, 10, 11],
+    10: [8, 9, 11],
+    11: [8, 9, 10],
+    12: [13, 14, 15, 16],
+    13: [12, 14, 15, 16],
+    14: [12, 13, 15, 16],
+    15: [12, 13, 14, 16],
+    16: [12, 13, 14, 15]
 }
-
 
 class Individual:
     """
@@ -114,7 +132,6 @@ class Individual:
         cluster = []
         for i in range(size):
             cluster.append(random.randint(1, k))
-
         return cluster
 
     def consistent_algorithm(self):
@@ -144,10 +161,6 @@ class Individual:
                 continue
         self.encoding = [ encoding_conversion_map[old_code] for old_code in self.encoding]
 
-
-
-
-
     '''
     The crossover function selects pairs of individuals to be mated, 
     generating a third individual (child)
@@ -176,11 +189,14 @@ class Individual:
     '''
     def mutate(self, mutation_rate):
         # code to mutate the individual here
-        ind_len = len(self.encoding)
-        p = random.uniform(0, 1)
-        if p < mutation_rate:
-            random_ind = random.randint(0, ind_len - 1)
-            self.encoding[random_ind] = random.randint(1, self.k)
+        # ind_len = len(self.encoding)
+        # p = random.uniform(0, 1)
+        # if p < mutation_rate:
+        #     random_ind = random.randint(0, ind_len - 1)
+        #     self.encoding[random_ind] = random.randint(1, self.k)
+        for i in range(len(self.encoding)):
+            if random.uniform(0, 1) < mutation_rate:
+                self.encoding[i] = random.randint(1, self.k)
 
     '''
     This tests the fitness function 
