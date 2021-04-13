@@ -41,7 +41,7 @@ class Population:
         self.mating_pool = []
         # TODO: The generation of pool can be improved.
         for i in range(len(self.population)):
-            n = int(self.population[i].fitness * len(self.population))
+            n = round(self.population[i].fitness * len(self.population)*self.k)
             self.mating_pool.extend([i] * n)
 
     # Generate the new population based on the natural selection function
@@ -55,6 +55,7 @@ class Population:
 
             child = parentA.crossover(parentB)
             child.mutate(self.mutation_rate)
+            child.normalize_encoding()
             child.calc_fitness()
             # TODO: Enhancement
             choices = [parentA, parentB, child]
