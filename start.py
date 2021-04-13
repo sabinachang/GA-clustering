@@ -9,7 +9,7 @@ def main():
     num_nodes = 17  # TODO: file number
     mutation_rate = 0.02
     # k, target number of clusters
-    k = 5  # TODO: tune
+    k = 4  # TODO: tune
     stop_generations = 1000
 
     pop = Population(pop_size, num_nodes, mutation_rate, k, stop_generations)

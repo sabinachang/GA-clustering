@@ -41,7 +41,8 @@ class Population:
         self.mating_pool = []
         # TODO: The generation of pool can be improved.
         for i in range(len(self.population)):
-            n = round(self.population[i].fitness * len(self.population)*self.k)
+            # TODO: decide a good factor to "integerize" this value
+            n = round(self.population[i].fitness * len(self.population)* self.k)
             self.mating_pool.extend([i] * n)
 
     # Generate the new population based on the natural selection function
