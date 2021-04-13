@@ -87,7 +87,6 @@ class Individual:
 
         for i in range(actual_k-1):
             for j in range(i+1, actual_k):
-
                 inter_score = self.calc_inter_conn(clusters[i], clusters[j])
                 total_inter_conn += inter_score
                 logging.debug("cluster {} {} inter:\t{}".format(i + 1, j + 1, inter_score))
@@ -130,6 +129,24 @@ class Individual:
                         S[j] = 1
                 label += 1
         # print(self.encoding)
+
+    '''
+    This normalize the individual encoding
+    '''
+    def normalize_encoding(self):
+        lowest_unused_code = 1
+        encoding_conversion_map = {}
+        for assignment in self.encoding:
+            if assignment not in encoding_conversion_map.keys():
+                encoding_conversion_map[assignment] = lowest_unused_code
+                lowest_unused_code += 1
+            else:
+                continue
+        self.encoding = [ encoding_conversion_map[old_code] for old_code in self.encoding]
+
+
+
+
 
     '''
     The crossover function selects pairs of individuals to be mated, 
