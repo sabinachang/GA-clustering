@@ -1,6 +1,6 @@
 import pkg_resources
-from os import walk
-from os.path import join, isfile, split
+from os import walk, makedirs
+from os.path import join, isfile, split, exists
 from javalang import parse
 from parse_object import ParseObject
 
@@ -47,7 +47,7 @@ class Parser:
         self.__create_text_repr_file()
     
     def __read_strct_file(self):
-        pkgs_file = self.po.project_name + self.po.strct_file_suffix
+        pkgs_file = self.po.strct_file_path
         packages = []
 
         with open(pkgs_file, "r") as pf:
@@ -58,7 +58,10 @@ class Parser:
         return packages
 
     def __create_text_repr_file(self):
-        repr_file = self.po.project_name + self.po.repr_file_suffix
+        if not exists(self.po.output_dir_path):
+            makedirs(self.po.output_dir_path)
+        
+        repr_file = join(self.po.output_dir_path,self.po.text_repr_name)
         with open(repr_file, "w") as rf:
             
             for key, values in self.po.structure.items():
@@ -90,8 +93,21 @@ class Parser:
 
 if __name__ == '__main__':
     # for DesignPatterns
-    # obj = ParseObject('patterns', 'DesignPatterns-master/src/', '.java','designPattern', "")
+    # obj = ParseObject()
+    # obj.set_strct_file_path('designPattern_strct.txt')
+    # obj.set_path_to_ignore('DesignPatterns-master/src/')
+    # obj.set_default_pkg_name('')
+    # obj.set_valid_file_end('.java')
+    # obj.set_text_repr_name('designPattern_repr.txt')
+    # obj.set_valid_import_start('patterns')
     # Parser(obj).parse()
+
     # for easyExcel
-    obj = ParseObject('com.alibaba', 'easyexcel-master/src/main/java/', '.java','easyExcel', '/excel')
-    Parser(obj).parse()
+    # obj = ParseObject()
+    # obj.set_strct_file_path('easyExcel_strct.txt')
+    # obj.set_path_to_ignore('easyexcel-master/src/main/java/')
+    # obj.set_default_pkg_name('/excel')
+    # obj.set_valid_file_end('.java')
+    # obj.set_text_repr_name('easyExcel_repr.txt')
+    # obj.set_valid_import_start('com.alibaba')
+    # Parser(obj).parse()
