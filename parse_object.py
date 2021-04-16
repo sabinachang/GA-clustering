@@ -12,5 +12,5 @@ class ParseObject:
         self.valid_file_end = file_end
         self.project_name = project_name
         self.default_pkg = default_pkg
-        self.pkgs_file_suffix = "_pkgs.txt"
+        self.strct_file_suffix = "_strct.txt"
         self.repr_file_suffix = "_repr.txt"

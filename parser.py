@@ -1,6 +1,6 @@
 import pkg_resources
 from os import walk
-from os.path import join
+from os.path import join, isfile, split
 from javalang import parse
 from parse_object import ParseObject
 
@@ -9,31 +9,46 @@ class Parser:
         self.po = parse_object
 
     def parse(self):
-        packages = self.__read_pkgs_file()
+        paths = self.__read_strct_file()
             
-        for package in packages:
-            # package name as key
-            key = package.replace(self.po.ignore_path,"",1)
-            self.po.structure[key] = []
+        for path in paths:
+            if isfile(path):
+                head_tail = split(path)
+                if not head_tail[1].endswith(self.po.valid_file_end):
+                    continue
+                
+                st = head_tail[0]+self.po.default_pkg
+                #default package name as key
+                key = st.replace(self.po.ignore_path,"",1)
+                print(key)
 
-            # list of nodes in package as value. For nodes in subpackage, 
-            # node name includes the subpackage path to avoid duplicate names across subpackages
-            # ex: in command, one node name equals /commands/CommandHistory.java
-            for root, _, files in walk(package):
-                for f in files:
-                    if not f.endswith(self.po.valid_file_end):
-                        continue
-                    node = join(root,f)
-                    d = self.__get_dependencies(node)
+                if not key in self.po.structure:
+                    self.po.structure[key] = []
+                
+                self.__add_dependencies(path)
+                self.__add_structure(key, path)
 
-                    node = node.replace(self.po.ignore_path,"",1)
-                    self.po.dependency[node] = d
-                    self.po.structure[key].append(node)
+            else:
+                # package name as key
+                key = path.replace(self.po.ignore_path,"",1)
+                self.po.structure[key] = []
 
-        self.__create_text_representation()
+                # list of nodes in package as value. For nodes in subpackage, 
+                # node name includes the subpackage path to avoid duplicate names across subpackages
+                # ex: in command, one node name equals /commands/CommandHistory.java
+                for root, _, files in walk(path):
+                    for f in files:
+                        if not f.endswith(self.po.valid_file_end):
+                            continue
+                        node = join(root,f)
+                        self.__add_dependencies(node) 
+                        self.__add_structure(key, node)
+
+
+        self.__create_text_repr_file()
     
-    def __read_pkgs_file(self):
-        pkgs_file = self.po.project_name + self.po.pkgs_file_suffix
+    def __read_strct_file(self):
+        pkgs_file = self.po.project_name + self.po.strct_file_suffix
         packages = []
 
         with open(pkgs_file, "r") as pf:
@@ -43,7 +58,7 @@ class Parser:
 
         return packages
 
-    def __create_text_representation(self):
+    def __create_text_repr_file(self):
         repr_file = self.po.project_name + self.po.repr_file_suffix
         with open(repr_file, "w") as rf:
             
@@ -57,8 +72,7 @@ class Parser:
                     rf.write(", ".join(self.po.dependency[v])+ "\n")
                 rf.write("\n\n")
 
-    def __get_dependencies(self, node):
-
+    def __add_dependencies(self, node):
         source = pkg_resources.resource_string(__name__, node)
         ast = parse.parse(source)
 
@@ -68,8 +82,12 @@ class Parser:
                 continue
             dependencies.append(imp.path.replace(".", "/"))
 
-        return dependencies
+        node = node.replace(self.po.ignore_path,"",1)
+        self.po.dependency[node] = dependencies
 
+    def __add_structure(self, key, node):
+        node = node.replace(self.po.ignore_path,"",1)
+        self.po.structure[key].append(node)
 
 if __name__ == '__main__':
     # for DesignPatterns
