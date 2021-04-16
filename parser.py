@@ -20,7 +20,6 @@ class Parser:
                 st = head_tail[0]+self.po.default_pkg
                 #default package name as key
                 key = st.replace(self.po.ignore_path,"",1)
-                print(key)
 
                 if not key in self.po.structure:
                     self.po.structure[key] = []
@@ -91,5 +90,8 @@ class Parser:
 
 if __name__ == '__main__':
     # for DesignPatterns
-    obj = ParseObject('patterns', 'DesignPatterns-master/src/', '.java','designPattern', "")
+    # obj = ParseObject('patterns', 'DesignPatterns-master/src/', '.java','designPattern', "")
+    # Parser(obj).parse()
+    # for easyExcel
+    obj = ParseObject('com.alibaba', 'easyexcel-master/src/main/java/', '.java','easyExcel', '/excel')
     Parser(obj).parse()
