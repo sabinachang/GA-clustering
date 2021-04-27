@@ -2,7 +2,7 @@ import pkg_resources
 from os import walk, makedirs
 from os.path import join, isfile, split, exists
 from javalang import parse
-from parse_object import ParseObject
+#from parse_object import ParseObject
 
 class Parser:
     def __init__(self, parse_object):
@@ -91,7 +91,7 @@ class Parser:
         node = node.replace(self.po.ignore_path,"",1)
         self.po.structure[key].append(node)
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
     # for DesignPatterns
     # obj = ParseObject()
     # obj.set_strct_file_path('designPattern_strct.txt')

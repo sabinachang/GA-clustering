@@ -1,284 +1,284 @@
 patterns/behavioral/chain_of_responsibility
-patterns/behavioral/chain_of_responsibility/Demo.java, patterns/behavioral/chain_of_responsibility/middleware/RoleCheckMiddleware.java, patterns/behavioral/chain_of_responsibility/middleware/ThrottlingMiddleware.java, patterns/behavioral/chain_of_responsibility/middleware/Middleware.java, patterns/behavioral/chain_of_responsibility/middleware/UserExistsMiddleware.java, patterns/behavioral/chain_of_responsibility/server/Server.java
+patterns/behavioral/chain_of_responsibility\Demo.java, patterns/behavioral/chain_of_responsibility\middleware\Middleware.java, patterns/behavioral/chain_of_responsibility\middleware\RoleCheckMiddleware.java, patterns/behavioral/chain_of_responsibility\middleware\ThrottlingMiddleware.java, patterns/behavioral/chain_of_responsibility\middleware\UserExistsMiddleware.java, patterns/behavioral/chain_of_responsibility\server\Server.java
 
-patterns/behavioral/chain_of_responsibility/Demo.java: patterns/behavioral/chain_of_responsibility/middleware/Middleware, patterns/behavioral/chain_of_responsibility/middleware/RoleCheckMiddleware, patterns/behavioral/chain_of_responsibility/middleware/ThrottlingMiddleware, patterns/behavioral/chain_of_responsibility/middleware/UserExistsMiddleware, patterns/behavioral/chain_of_responsibility/server/Server
-patterns/behavioral/chain_of_responsibility/middleware/RoleCheckMiddleware.java: 
-patterns/behavioral/chain_of_responsibility/middleware/ThrottlingMiddleware.java: 
-patterns/behavioral/chain_of_responsibility/middleware/Middleware.java: 
-patterns/behavioral/chain_of_responsibility/middleware/UserExistsMiddleware.java: patterns/behavioral/chain_of_responsibility/server/Server
-patterns/behavioral/chain_of_responsibility/server/Server.java: patterns/behavioral/chain_of_responsibility/middleware/Middleware
+patterns/behavioral/chain_of_responsibility\Demo.java: patterns/behavioral/chain_of_responsibility/middleware/Middleware, patterns/behavioral/chain_of_responsibility/middleware/RoleCheckMiddleware, patterns/behavioral/chain_of_responsibility/middleware/ThrottlingMiddleware, patterns/behavioral/chain_of_responsibility/middleware/UserExistsMiddleware, patterns/behavioral/chain_of_responsibility/server/Server
+patterns/behavioral/chain_of_responsibility\middleware\Middleware.java: 
+patterns/behavioral/chain_of_responsibility\middleware\RoleCheckMiddleware.java: 
+patterns/behavioral/chain_of_responsibility\middleware\ThrottlingMiddleware.java: 
+patterns/behavioral/chain_of_responsibility\middleware\UserExistsMiddleware.java: patterns/behavioral/chain_of_responsibility/server/Server
+patterns/behavioral/chain_of_responsibility\server\Server.java: patterns/behavioral/chain_of_responsibility/middleware/Middleware
 
 
 patterns/behavioral/command
-patterns/behavioral/command/Demo.java, patterns/behavioral/command/commands/CommandHistory.java, patterns/behavioral/command/commands/CutCommand.java, patterns/behavioral/command/commands/Command.java, patterns/behavioral/command/commands/PasteCommand.java, patterns/behavioral/command/commands/CopyCommand.java, patterns/behavioral/command/editor/Editor.java
+patterns/behavioral/command\Demo.java, patterns/behavioral/command\commands\Command.java, patterns/behavioral/command\commands\CommandHistory.java, patterns/behavioral/command\commands\CopyCommand.java, patterns/behavioral/command\commands\CutCommand.java, patterns/behavioral/command\commands\PasteCommand.java, patterns/behavioral/command\editor\Editor.java
 
-patterns/behavioral/command/Demo.java: patterns/behavioral/command/editor/Editor
-patterns/behavioral/command/commands/CommandHistory.java: 
-patterns/behavioral/command/commands/CutCommand.java: patterns/behavioral/command/editor/Editor
-patterns/behavioral/command/commands/Command.java: patterns/behavioral/command/editor/Editor
-patterns/behavioral/command/commands/PasteCommand.java: patterns/behavioral/command/editor/Editor
-patterns/behavioral/command/commands/CopyCommand.java: patterns/behavioral/command/editor/Editor
-patterns/behavioral/command/editor/Editor.java: patterns/behavioral/command/commands/Command, patterns/behavioral/command/commands/CommandHistory, patterns/behavioral/command/commands/CopyCommand, patterns/behavioral/command/commands/CutCommand, patterns/behavioral/command/commands/PasteCommand
+patterns/behavioral/command\Demo.java: patterns/behavioral/command/editor/Editor
+patterns/behavioral/command\commands\Command.java: patterns/behavioral/command/editor/Editor
+patterns/behavioral/command\commands\CommandHistory.java: 
+patterns/behavioral/command\commands\CopyCommand.java: patterns/behavioral/command/editor/Editor
+patterns/behavioral/command\commands\CutCommand.java: patterns/behavioral/command/editor/Editor
+patterns/behavioral/command\commands\PasteCommand.java: patterns/behavioral/command/editor/Editor
+patterns/behavioral/command\editor\Editor.java: patterns/behavioral/command/commands/Command, patterns/behavioral/command/commands/CommandHistory, patterns/behavioral/command/commands/CopyCommand, patterns/behavioral/command/commands/CutCommand, patterns/behavioral/command/commands/PasteCommand
 
 
 patterns/behavioral/interpreter
-patterns/behavioral/interpreter/InterpreterDemo.java, patterns/behavioral/interpreter/interpreter/Operand.java, patterns/behavioral/interpreter/interpreter/Expression.java, patterns/behavioral/interpreter/interpreter/Variable.java, patterns/behavioral/interpreter/interpreter/Number.java
+patterns/behavioral/interpreter\InterpreterDemo.java, patterns/behavioral/interpreter\interpreter\Expression.java, patterns/behavioral/interpreter\interpreter\Number.java, patterns/behavioral/interpreter\interpreter\Operand.java, patterns/behavioral/interpreter\interpreter\Variable.java
 
-patterns/behavioral/interpreter/InterpreterDemo.java: patterns/behavioral/interpreter/interpreter/Number, patterns/behavioral/interpreter/interpreter/Operand, patterns/behavioral/interpreter/interpreter/Variable, patterns/behavioral/interpreter/interpreter/Expression
-patterns/behavioral/interpreter/interpreter/Operand.java: 
-patterns/behavioral/interpreter/interpreter/Expression.java: 
-patterns/behavioral/interpreter/interpreter/Variable.java: 
-patterns/behavioral/interpreter/interpreter/Number.java: 
+patterns/behavioral/interpreter\InterpreterDemo.java: patterns/behavioral/interpreter/interpreter/Number, patterns/behavioral/interpreter/interpreter/Operand, patterns/behavioral/interpreter/interpreter/Variable, patterns/behavioral/interpreter/interpreter/Expression
+patterns/behavioral/interpreter\interpreter\Expression.java: 
+patterns/behavioral/interpreter\interpreter\Number.java: 
+patterns/behavioral/interpreter\interpreter\Operand.java: 
+patterns/behavioral/interpreter\interpreter\Variable.java: 
 
 
 patterns/behavioral/iterator
-patterns/behavioral/iterator/Demo.java, patterns/behavioral/iterator/spammer/SocialSpammer.java, patterns/behavioral/iterator/social_networks/LinkedIn.java, patterns/behavioral/iterator/social_networks/Facebook.java, patterns/behavioral/iterator/social_networks/SocialNetwork.java, patterns/behavioral/iterator/profile/Profile.java, patterns/behavioral/iterator/iterators/ProfileIterator.java, patterns/behavioral/iterator/iterators/FacebookIterator.java, patterns/behavioral/iterator/iterators/LinkedInIterator.java
+patterns/behavioral/iterator\Demo.java, patterns/behavioral/iterator\iterators\FacebookIterator.java, patterns/behavioral/iterator\iterators\LinkedInIterator.java, patterns/behavioral/iterator\iterators\ProfileIterator.java, patterns/behavioral/iterator\profile\Profile.java, patterns/behavioral/iterator\social_networks\Facebook.java, patterns/behavioral/iterator\social_networks\LinkedIn.java, patterns/behavioral/iterator\social_networks\SocialNetwork.java, patterns/behavioral/iterator\spammer\SocialSpammer.java
 
-patterns/behavioral/iterator/Demo.java: patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/Facebook, patterns/behavioral/iterator/social_networks/LinkedIn, patterns/behavioral/iterator/social_networks/SocialNetwork, patterns/behavioral/iterator/spammer/SocialSpammer
-patterns/behavioral/iterator/spammer/SocialSpammer.java: patterns/behavioral/iterator/iterators/ProfileIterator, patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/SocialNetwork
-patterns/behavioral/iterator/social_networks/LinkedIn.java: patterns/behavioral/iterator/iterators/LinkedInIterator, patterns/behavioral/iterator/iterators/ProfileIterator, patterns/behavioral/iterator/profile/Profile
-patterns/behavioral/iterator/social_networks/Facebook.java: patterns/behavioral/iterator/iterators/FacebookIterator, patterns/behavioral/iterator/iterators/ProfileIterator, patterns/behavioral/iterator/profile/Profile
-patterns/behavioral/iterator/social_networks/SocialNetwork.java: patterns/behavioral/iterator/iterators/ProfileIterator
-patterns/behavioral/iterator/profile/Profile.java: 
-patterns/behavioral/iterator/iterators/ProfileIterator.java: patterns/behavioral/iterator/profile/Profile
-patterns/behavioral/iterator/iterators/FacebookIterator.java: patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/Facebook
-patterns/behavioral/iterator/iterators/LinkedInIterator.java: patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/LinkedIn
+patterns/behavioral/iterator\Demo.java: patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/Facebook, patterns/behavioral/iterator/social_networks/LinkedIn, patterns/behavioral/iterator/social_networks/SocialNetwork, patterns/behavioral/iterator/spammer/SocialSpammer
+patterns/behavioral/iterator\iterators\FacebookIterator.java: patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/Facebook
+patterns/behavioral/iterator\iterators\LinkedInIterator.java: patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/LinkedIn
+patterns/behavioral/iterator\iterators\ProfileIterator.java: patterns/behavioral/iterator/profile/Profile
+patterns/behavioral/iterator\profile\Profile.java: 
+patterns/behavioral/iterator\social_networks\Facebook.java: patterns/behavioral/iterator/iterators/FacebookIterator, patterns/behavioral/iterator/iterators/ProfileIterator, patterns/behavioral/iterator/profile/Profile
+patterns/behavioral/iterator\social_networks\LinkedIn.java: patterns/behavioral/iterator/iterators/LinkedInIterator, patterns/behavioral/iterator/iterators/ProfileIterator, patterns/behavioral/iterator/profile/Profile
+patterns/behavioral/iterator\social_networks\SocialNetwork.java: patterns/behavioral/iterator/iterators/ProfileIterator
+patterns/behavioral/iterator\spammer\SocialSpammer.java: patterns/behavioral/iterator/iterators/ProfileIterator, patterns/behavioral/iterator/profile/Profile, patterns/behavioral/iterator/social_networks/SocialNetwork
 
 
 patterns/behavioral/mediator
-patterns/behavioral/mediator/Demo.java, patterns/behavioral/mediator/components/TextBox.java, patterns/behavioral/mediator/components/Title.java, patterns/behavioral/mediator/components/List.java, patterns/behavioral/mediator/components/DeleteButton.java, patterns/behavioral/mediator/components/Component.java, patterns/behavioral/mediator/components/AddButton.java, patterns/behavioral/mediator/components/SaveButton.java, patterns/behavioral/mediator/components/Filter.java, patterns/behavioral/mediator/mediator/Editor.java, patterns/behavioral/mediator/mediator/Note.java, patterns/behavioral/mediator/mediator/Mediator.java
+patterns/behavioral/mediator\Demo.java, patterns/behavioral/mediator\components\AddButton.java, patterns/behavioral/mediator\components\Component.java, patterns/behavioral/mediator\components\DeleteButton.java, patterns/behavioral/mediator\components\Filter.java, patterns/behavioral/mediator\components\List.java, patterns/behavioral/mediator\components\SaveButton.java, patterns/behavioral/mediator\components\TextBox.java, patterns/behavioral/mediator\components\Title.java, patterns/behavioral/mediator\mediator\Editor.java, patterns/behavioral/mediator\mediator\Mediator.java, patterns/behavioral/mediator\mediator\Note.java
 
-patterns/behavioral/mediator/Demo.java: patterns/behavioral/mediator/components/AddButton, patterns/behavioral/mediator/components/DeleteButton, patterns/behavioral/mediator/components/Filter, patterns/behavioral/mediator/components/List, patterns/behavioral/mediator/components/SaveButton, patterns/behavioral/mediator/components/TextBox, patterns/behavioral/mediator/components/Title, patterns/behavioral/mediator/mediator/Editor, patterns/behavioral/mediator/mediator/Mediator
-patterns/behavioral/mediator/components/TextBox.java: patterns/behavioral/mediator/mediator/Mediator
-patterns/behavioral/mediator/components/Title.java: patterns/behavioral/mediator/mediator/Mediator
-patterns/behavioral/mediator/components/List.java: patterns/behavioral/mediator/mediator/Mediator, patterns/behavioral/mediator/mediator/Note
-patterns/behavioral/mediator/components/DeleteButton.java: patterns/behavioral/mediator/mediator/Mediator
-patterns/behavioral/mediator/components/Component.java: patterns/behavioral/mediator/mediator/Mediator
-patterns/behavioral/mediator/components/AddButton.java: patterns/behavioral/mediator/mediator/Mediator, patterns/behavioral/mediator/mediator/Note
-patterns/behavioral/mediator/components/SaveButton.java: patterns/behavioral/mediator/mediator/Mediator
-patterns/behavioral/mediator/components/Filter.java: patterns/behavioral/mediator/mediator/Mediator, patterns/behavioral/mediator/mediator/Note
-patterns/behavioral/mediator/mediator/Editor.java: patterns/behavioral/mediator/components/AddButton, patterns/behavioral/mediator/components/Component, patterns/behavioral/mediator/components/DeleteButton, patterns/behavioral/mediator/components/Filter, patterns/behavioral/mediator/components/List, patterns/behavioral/mediator/components/SaveButton, patterns/behavioral/mediator/components/TextBox, patterns/behavioral/mediator/components/Title
-patterns/behavioral/mediator/mediator/Note.java: 
-patterns/behavioral/mediator/mediator/Mediator.java: patterns/behavioral/mediator/components/Component
+patterns/behavioral/mediator\Demo.java: patterns/behavioral/mediator/components/AddButton, patterns/behavioral/mediator/components/DeleteButton, patterns/behavioral/mediator/components/Filter, patterns/behavioral/mediator/components/List, patterns/behavioral/mediator/components/SaveButton, patterns/behavioral/mediator/components/TextBox, patterns/behavioral/mediator/components/Title, patterns/behavioral/mediator/mediator/Editor, patterns/behavioral/mediator/mediator/Mediator
+patterns/behavioral/mediator\components\AddButton.java: patterns/behavioral/mediator/mediator/Mediator, patterns/behavioral/mediator/mediator/Note
+patterns/behavioral/mediator\components\Component.java: patterns/behavioral/mediator/mediator/Mediator
+patterns/behavioral/mediator\components\DeleteButton.java: patterns/behavioral/mediator/mediator/Mediator
+patterns/behavioral/mediator\components\Filter.java: patterns/behavioral/mediator/mediator/Mediator, patterns/behavioral/mediator/mediator/Note
+patterns/behavioral/mediator\components\List.java: patterns/behavioral/mediator/mediator/Mediator, patterns/behavioral/mediator/mediator/Note
+patterns/behavioral/mediator\components\SaveButton.java: patterns/behavioral/mediator/mediator/Mediator
+patterns/behavioral/mediator\components\TextBox.java: patterns/behavioral/mediator/mediator/Mediator
+patterns/behavioral/mediator\components\Title.java: patterns/behavioral/mediator/mediator/Mediator
+patterns/behavioral/mediator\mediator\Editor.java: patterns/behavioral/mediator/components/AddButton, patterns/behavioral/mediator/components/Component, patterns/behavioral/mediator/components/DeleteButton, patterns/behavioral/mediator/components/Filter, patterns/behavioral/mediator/components/List, patterns/behavioral/mediator/components/SaveButton, patterns/behavioral/mediator/components/TextBox, patterns/behavioral/mediator/components/Title
+patterns/behavioral/mediator\mediator\Mediator.java: patterns/behavioral/mediator/components/Component
+patterns/behavioral/mediator\mediator\Note.java: 
 
 
 patterns/behavioral/memento
-patterns/behavioral/memento/Demo.java, patterns/behavioral/memento/shapes/BaseShape.java, patterns/behavioral/memento/shapes/CompoundShape.java, patterns/behavioral/memento/shapes/Circle.java, patterns/behavioral/memento/shapes/Rectangle.java, patterns/behavioral/memento/shapes/Dot.java, patterns/behavioral/memento/shapes/Shape.java, patterns/behavioral/memento/history/Memento.java, patterns/behavioral/memento/history/History.java, patterns/behavioral/memento/commands/Command.java, patterns/behavioral/memento/commands/ColorCommand.java, patterns/behavioral/memento/commands/MoveCommand.java, patterns/behavioral/memento/editor/Editor.java, patterns/behavioral/memento/editor/Canvas.java
+patterns/behavioral/memento\Demo.java, patterns/behavioral/memento\commands\ColorCommand.java, patterns/behavioral/memento\commands\Command.java, patterns/behavioral/memento\commands\MoveCommand.java, patterns/behavioral/memento\editor\Canvas.java, patterns/behavioral/memento\editor\Editor.java, patterns/behavioral/memento\history\History.java, patterns/behavioral/memento\history\Memento.java, patterns/behavioral/memento\shapes\BaseShape.java, patterns/behavioral/memento\shapes\Circle.java, patterns/behavioral/memento\shapes\CompoundShape.java, patterns/behavioral/memento\shapes\Dot.java, patterns/behavioral/memento\shapes\Rectangle.java, patterns/behavioral/memento\shapes\Shape.java
 
-patterns/behavioral/memento/Demo.java: patterns/behavioral/memento/editor/Editor, patterns/behavioral/memento/shapes/Circle, patterns/behavioral/memento/shapes/CompoundShape, patterns/behavioral/memento/shapes/Dot, patterns/behavioral/memento/shapes/Rectangle
-patterns/behavioral/memento/shapes/BaseShape.java: 
-patterns/behavioral/memento/shapes/CompoundShape.java: 
-patterns/behavioral/memento/shapes/Circle.java: 
-patterns/behavioral/memento/shapes/Rectangle.java: 
-patterns/behavioral/memento/shapes/Dot.java: 
-patterns/behavioral/memento/shapes/Shape.java: 
-patterns/behavioral/memento/history/Memento.java: patterns/behavioral/memento/editor/Editor
-patterns/behavioral/memento/history/History.java: patterns/behavioral/memento/commands/Command
-patterns/behavioral/memento/commands/Command.java: 
-patterns/behavioral/memento/commands/ColorCommand.java: patterns/behavioral/memento/editor/Editor, patterns/behavioral/memento/shapes/Shape
-patterns/behavioral/memento/commands/MoveCommand.java: patterns/behavioral/memento/editor/Editor, patterns/behavioral/memento/shapes/Shape
-patterns/behavioral/memento/editor/Editor.java: patterns/behavioral/memento/commands/Command, patterns/behavioral/memento/history/History, patterns/behavioral/memento/history/Memento, patterns/behavioral/memento/shapes/CompoundShape, patterns/behavioral/memento/shapes/Shape
-patterns/behavioral/memento/editor/Canvas.java: patterns/behavioral/memento/commands/ColorCommand, patterns/behavioral/memento/commands/MoveCommand, patterns/behavioral/memento/shapes/Shape
+patterns/behavioral/memento\Demo.java: patterns/behavioral/memento/editor/Editor, patterns/behavioral/memento/shapes/Circle, patterns/behavioral/memento/shapes/CompoundShape, patterns/behavioral/memento/shapes/Dot, patterns/behavioral/memento/shapes/Rectangle
+patterns/behavioral/memento\commands\ColorCommand.java: patterns/behavioral/memento/editor/Editor, patterns/behavioral/memento/shapes/Shape
+patterns/behavioral/memento\commands\Command.java: 
+patterns/behavioral/memento\commands\MoveCommand.java: patterns/behavioral/memento/editor/Editor, patterns/behavioral/memento/shapes/Shape
+patterns/behavioral/memento\editor\Canvas.java: patterns/behavioral/memento/commands/ColorCommand, patterns/behavioral/memento/commands/MoveCommand, patterns/behavioral/memento/shapes/Shape
+patterns/behavioral/memento\editor\Editor.java: patterns/behavioral/memento/commands/Command, patterns/behavioral/memento/history/History, patterns/behavioral/memento/history/Memento, patterns/behavioral/memento/shapes/CompoundShape, patterns/behavioral/memento/shapes/Shape
+patterns/behavioral/memento\history\History.java: patterns/behavioral/memento/commands/Command
+patterns/behavioral/memento\history\Memento.java: patterns/behavioral/memento/editor/Editor
+patterns/behavioral/memento\shapes\BaseShape.java: 
+patterns/behavioral/memento\shapes\Circle.java: 
+patterns/behavioral/memento\shapes\CompoundShape.java: 
+patterns/behavioral/memento\shapes\Dot.java: 
+patterns/behavioral/memento\shapes\Rectangle.java: 
+patterns/behavioral/memento\shapes\Shape.java: 
 
 
 patterns/behavioral/observer
-patterns/behavioral/observer/Demo.java, patterns/behavioral/observer/publisher/EventManager.java, patterns/behavioral/observer/listeners/EmailNotificationListener.java, patterns/behavioral/observer/listeners/LogOpenListener.java, patterns/behavioral/observer/listeners/EventListener.java, patterns/behavioral/observer/editor/Editor.java
+patterns/behavioral/observer\Demo.java, patterns/behavioral/observer\editor\Editor.java, patterns/behavioral/observer\listeners\EmailNotificationListener.java, patterns/behavioral/observer\listeners\EventListener.java, patterns/behavioral/observer\listeners\LogOpenListener.java, patterns/behavioral/observer\publisher\EventManager.java
 
-patterns/behavioral/observer/Demo.java: patterns/behavioral/observer/editor/Editor, patterns/behavioral/observer/listeners/EmailNotificationListener, patterns/behavioral/observer/listeners/LogOpenListener
-patterns/behavioral/observer/publisher/EventManager.java: patterns/behavioral/observer/listeners/EventListener
-patterns/behavioral/observer/listeners/EmailNotificationListener.java: 
-patterns/behavioral/observer/listeners/LogOpenListener.java: 
-patterns/behavioral/observer/listeners/EventListener.java: 
-patterns/behavioral/observer/editor/Editor.java: patterns/behavioral/observer/publisher/EventManager
+patterns/behavioral/observer\Demo.java: patterns/behavioral/observer/editor/Editor, patterns/behavioral/observer/listeners/EmailNotificationListener, patterns/behavioral/observer/listeners/LogOpenListener
+patterns/behavioral/observer\editor\Editor.java: patterns/behavioral/observer/publisher/EventManager
+patterns/behavioral/observer\listeners\EmailNotificationListener.java: 
+patterns/behavioral/observer\listeners\EventListener.java: 
+patterns/behavioral/observer\listeners\LogOpenListener.java: 
+patterns/behavioral/observer\publisher\EventManager.java: patterns/behavioral/observer/listeners/EventListener
 
 
 patterns/behavioral/state
-patterns/behavioral/state/Demo.java, patterns/behavioral/state/ui/UI.java, patterns/behavioral/state/ui/Player.java, patterns/behavioral/state/states/LockedState.java, patterns/behavioral/state/states/ReadyState.java, patterns/behavioral/state/states/PlayingState.java, patterns/behavioral/state/states/State.java
+patterns/behavioral/state\Demo.java, patterns/behavioral/state\states\LockedState.java, patterns/behavioral/state\states\PlayingState.java, patterns/behavioral/state\states\ReadyState.java, patterns/behavioral/state\states\State.java, patterns/behavioral/state\ui\Player.java, patterns/behavioral/state\ui\UI.java
 
-patterns/behavioral/state/Demo.java: patterns/behavioral/state/ui/Player, patterns/behavioral/state/ui/UI
-patterns/behavioral/state/ui/UI.java: 
-patterns/behavioral/state/ui/Player.java: patterns/behavioral/state/states/ReadyState, patterns/behavioral/state/states/State
-patterns/behavioral/state/states/LockedState.java: patterns/behavioral/state/ui/Player
-patterns/behavioral/state/states/ReadyState.java: patterns/behavioral/state/ui/Player
-patterns/behavioral/state/states/PlayingState.java: patterns/behavioral/state/ui/Player
-patterns/behavioral/state/states/State.java: patterns/behavioral/state/ui/Player
+patterns/behavioral/state\Demo.java: patterns/behavioral/state/ui/Player, patterns/behavioral/state/ui/UI
+patterns/behavioral/state\states\LockedState.java: patterns/behavioral/state/ui/Player
+patterns/behavioral/state\states\PlayingState.java: patterns/behavioral/state/ui/Player
+patterns/behavioral/state\states\ReadyState.java: patterns/behavioral/state/ui/Player
+patterns/behavioral/state\states\State.java: patterns/behavioral/state/ui/Player
+patterns/behavioral/state\ui\Player.java: patterns/behavioral/state/states/ReadyState, patterns/behavioral/state/states/State
+patterns/behavioral/state\ui\UI.java: 
 
 
 patterns/behavioral/strategy
-patterns/behavioral/strategy/Demo.java, patterns/behavioral/strategy/order/Order.java, patterns/behavioral/strategy/strategies/PayByPayPal.java, patterns/behavioral/strategy/strategies/PayStrategy.java, patterns/behavioral/strategy/strategies/CreditCard.java, patterns/behavioral/strategy/strategies/PayByCreditCard.java
+patterns/behavioral/strategy\Demo.java, patterns/behavioral/strategy\order\Order.java, patterns/behavioral/strategy\strategies\CreditCard.java, patterns/behavioral/strategy\strategies\PayByCreditCard.java, patterns/behavioral/strategy\strategies\PayByPayPal.java, patterns/behavioral/strategy\strategies\PayStrategy.java
 
-patterns/behavioral/strategy/Demo.java: patterns/behavioral/strategy/order/Order, patterns/behavioral/strategy/strategies/PayByCreditCard, patterns/behavioral/strategy/strategies/PayByPayPal, patterns/behavioral/strategy/strategies/PayStrategy
-patterns/behavioral/strategy/order/Order.java: patterns/behavioral/strategy/strategies/PayStrategy
-patterns/behavioral/strategy/strategies/PayByPayPal.java: 
-patterns/behavioral/strategy/strategies/PayStrategy.java: 
-patterns/behavioral/strategy/strategies/CreditCard.java: 
-patterns/behavioral/strategy/strategies/PayByCreditCard.java: 
+patterns/behavioral/strategy\Demo.java: patterns/behavioral/strategy/order/Order, patterns/behavioral/strategy/strategies/PayByCreditCard, patterns/behavioral/strategy/strategies/PayByPayPal, patterns/behavioral/strategy/strategies/PayStrategy
+patterns/behavioral/strategy\order\Order.java: patterns/behavioral/strategy/strategies/PayStrategy
+patterns/behavioral/strategy\strategies\CreditCard.java: 
+patterns/behavioral/strategy\strategies\PayByCreditCard.java: 
+patterns/behavioral/strategy\strategies\PayByPayPal.java: 
+patterns/behavioral/strategy\strategies\PayStrategy.java: 
 
 
 patterns/behavioral/template_method
-patterns/behavioral/template_method/Demo.java, patterns/behavioral/template_method/networks/Twitter.java, patterns/behavioral/template_method/networks/Network.java, patterns/behavioral/template_method/networks/Facebook.java
+patterns/behavioral/template_method\Demo.java, patterns/behavioral/template_method\networks\Facebook.java, patterns/behavioral/template_method\networks\Network.java, patterns/behavioral/template_method\networks\Twitter.java
 
-patterns/behavioral/template_method/Demo.java: patterns/behavioral/template_method/networks/Facebook, patterns/behavioral/template_method/networks/Network, patterns/behavioral/template_method/networks/Twitter
-patterns/behavioral/template_method/networks/Twitter.java: 
-patterns/behavioral/template_method/networks/Network.java: 
-patterns/behavioral/template_method/networks/Facebook.java: 
+patterns/behavioral/template_method\Demo.java: patterns/behavioral/template_method/networks/Facebook, patterns/behavioral/template_method/networks/Network, patterns/behavioral/template_method/networks/Twitter
+patterns/behavioral/template_method\networks\Facebook.java: 
+patterns/behavioral/template_method\networks\Network.java: 
+patterns/behavioral/template_method\networks\Twitter.java: 
 
 
 patterns/behavioral/visitor
-patterns/behavioral/visitor/Demo.java, patterns/behavioral/visitor/shapes/CompoundShape.java, patterns/behavioral/visitor/shapes/Circle.java, patterns/behavioral/visitor/shapes/Rectangle.java, patterns/behavioral/visitor/shapes/Dot.java, patterns/behavioral/visitor/shapes/Shape.java, patterns/behavioral/visitor/visitor/XMLExportVisitor.java, patterns/behavioral/visitor/visitor/Visitor.java
+patterns/behavioral/visitor\Demo.java, patterns/behavioral/visitor\shapes\Circle.java, patterns/behavioral/visitor\shapes\CompoundShape.java, patterns/behavioral/visitor\shapes\Dot.java, patterns/behavioral/visitor\shapes\Rectangle.java, patterns/behavioral/visitor\shapes\Shape.java, patterns/behavioral/visitor\visitor\Visitor.java, patterns/behavioral/visitor\visitor\XMLExportVisitor.java
 
-patterns/behavioral/visitor/Demo.java: patterns/behavioral/visitor/shapes, patterns/behavioral/visitor/visitor/XMLExportVisitor
-patterns/behavioral/visitor/shapes/CompoundShape.java: patterns/behavioral/visitor/visitor/Visitor
-patterns/behavioral/visitor/shapes/Circle.java: patterns/behavioral/visitor/visitor/Visitor
-patterns/behavioral/visitor/shapes/Rectangle.java: patterns/behavioral/visitor/visitor/Visitor
-patterns/behavioral/visitor/shapes/Dot.java: patterns/behavioral/visitor/visitor/Visitor
-patterns/behavioral/visitor/shapes/Shape.java: patterns/behavioral/visitor/visitor/Visitor
-patterns/behavioral/visitor/visitor/XMLExportVisitor.java: patterns/behavioral/visitor/shapes
-patterns/behavioral/visitor/visitor/Visitor.java: patterns/behavioral/visitor/shapes/Circle, patterns/behavioral/visitor/shapes/CompoundShape, patterns/behavioral/visitor/shapes/Dot, patterns/behavioral/visitor/shapes/Rectangle
+patterns/behavioral/visitor\Demo.java: patterns/behavioral/visitor/shapes, patterns/behavioral/visitor/visitor/XMLExportVisitor
+patterns/behavioral/visitor\shapes\Circle.java: patterns/behavioral/visitor/visitor/Visitor
+patterns/behavioral/visitor\shapes\CompoundShape.java: patterns/behavioral/visitor/visitor/Visitor
+patterns/behavioral/visitor\shapes\Dot.java: patterns/behavioral/visitor/visitor/Visitor
+patterns/behavioral/visitor\shapes\Rectangle.java: patterns/behavioral/visitor/visitor/Visitor
+patterns/behavioral/visitor\shapes\Shape.java: patterns/behavioral/visitor/visitor/Visitor
+patterns/behavioral/visitor\visitor\Visitor.java: patterns/behavioral/visitor/shapes/Circle, patterns/behavioral/visitor/shapes/CompoundShape, patterns/behavioral/visitor/shapes/Dot, patterns/behavioral/visitor/shapes/Rectangle
+patterns/behavioral/visitor\visitor\XMLExportVisitor.java: patterns/behavioral/visitor/shapes
 
 
 patterns/creational/abstractfactory
-patterns/creational/abstractfactory/Demo.java, patterns/creational/abstractfactory/buttons/WindowsButton.java, patterns/creational/abstractfactory/buttons/MacOSButton.java, patterns/creational/abstractfactory/buttons/Button.java, patterns/creational/abstractfactory/app/Application.java, patterns/creational/abstractfactory/checkboxes/WindowsCheckbox.java, patterns/creational/abstractfactory/checkboxes/Checkbox.java, patterns/creational/abstractfactory/checkboxes/MacOSCheckbox.java, patterns/creational/abstractfactory/factories/GUIFactory.java, patterns/creational/abstractfactory/factories/MacOSFactory.java, patterns/creational/abstractfactory/factories/WindowsFactory.java
+patterns/creational/abstractfactory\Demo.java, patterns/creational/abstractfactory\app\Application.java, patterns/creational/abstractfactory\buttons\Button.java, patterns/creational/abstractfactory\buttons\MacOSButton.java, patterns/creational/abstractfactory\buttons\WindowsButton.java, patterns/creational/abstractfactory\checkboxes\Checkbox.java, patterns/creational/abstractfactory\checkboxes\MacOSCheckbox.java, patterns/creational/abstractfactory\checkboxes\WindowsCheckbox.java, patterns/creational/abstractfactory\factories\GUIFactory.java, patterns/creational/abstractfactory\factories\MacOSFactory.java, patterns/creational/abstractfactory\factories\WindowsFactory.java
 
-patterns/creational/abstractfactory/Demo.java: patterns/creational/abstractfactory/app/Application, patterns/creational/abstractfactory/factories/GUIFactory, patterns/creational/abstractfactory/factories/MacOSFactory, patterns/creational/abstractfactory/factories/WindowsFactory
-patterns/creational/abstractfactory/buttons/WindowsButton.java: 
-patterns/creational/abstractfactory/buttons/MacOSButton.java: 
-patterns/creational/abstractfactory/buttons/Button.java: 
-patterns/creational/abstractfactory/app/Application.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/checkboxes/Checkbox, patterns/creational/abstractfactory/factories/GUIFactory
-patterns/creational/abstractfactory/checkboxes/WindowsCheckbox.java: 
-patterns/creational/abstractfactory/checkboxes/Checkbox.java: 
-patterns/creational/abstractfactory/checkboxes/MacOSCheckbox.java: 
-patterns/creational/abstractfactory/factories/GUIFactory.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/checkboxes/Checkbox
-patterns/creational/abstractfactory/factories/MacOSFactory.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/buttons/MacOSButton, patterns/creational/abstractfactory/checkboxes/Checkbox, patterns/creational/abstractfactory/checkboxes/MacOSCheckbox
-patterns/creational/abstractfactory/factories/WindowsFactory.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/buttons/WindowsButton, patterns/creational/abstractfactory/checkboxes/Checkbox, patterns/creational/abstractfactory/checkboxes/WindowsCheckbox
+patterns/creational/abstractfactory\Demo.java: patterns/creational/abstractfactory/app/Application, patterns/creational/abstractfactory/factories/GUIFactory, patterns/creational/abstractfactory/factories/MacOSFactory, patterns/creational/abstractfactory/factories/WindowsFactory
+patterns/creational/abstractfactory\app\Application.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/checkboxes/Checkbox, patterns/creational/abstractfactory/factories/GUIFactory
+patterns/creational/abstractfactory\buttons\Button.java: 
+patterns/creational/abstractfactory\buttons\MacOSButton.java: 
+patterns/creational/abstractfactory\buttons\WindowsButton.java: 
+patterns/creational/abstractfactory\checkboxes\Checkbox.java: 
+patterns/creational/abstractfactory\checkboxes\MacOSCheckbox.java: 
+patterns/creational/abstractfactory\checkboxes\WindowsCheckbox.java: 
+patterns/creational/abstractfactory\factories\GUIFactory.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/checkboxes/Checkbox
+patterns/creational/abstractfactory\factories\MacOSFactory.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/buttons/MacOSButton, patterns/creational/abstractfactory/checkboxes/Checkbox, patterns/creational/abstractfactory/checkboxes/MacOSCheckbox
+patterns/creational/abstractfactory\factories\WindowsFactory.java: patterns/creational/abstractfactory/buttons/Button, patterns/creational/abstractfactory/buttons/WindowsButton, patterns/creational/abstractfactory/checkboxes/Checkbox, patterns/creational/abstractfactory/checkboxes/WindowsCheckbox
 
 
 patterns/creational/builder
-patterns/creational/builder/DemoClient.java, patterns/creational/builder/builders/CarManualBuilder.java, patterns/creational/builder/builders/CarBuilder.java, patterns/creational/builder/builders/Builder.java, patterns/creational/builder/director/Director.java, patterns/creational/builder/components/TripComputer.java, patterns/creational/builder/components/GPSNavigator.java, patterns/creational/builder/components/Engine.java, patterns/creational/builder/components/Transmission.java, patterns/creational/builder/cars/Type.java, patterns/creational/builder/cars/Manual.java, patterns/creational/builder/cars/Car.java
+patterns/creational/builder\DemoClient.java, patterns/creational/builder\builders\Builder.java, patterns/creational/builder\builders\CarBuilder.java, patterns/creational/builder\builders\CarManualBuilder.java, patterns/creational/builder\cars\Car.java, patterns/creational/builder\cars\Manual.java, patterns/creational/builder\cars\Type.java, patterns/creational/builder\components\Engine.java, patterns/creational/builder\components\GPSNavigator.java, patterns/creational/builder\components\Transmission.java, patterns/creational/builder\components\TripComputer.java, patterns/creational/builder\director\Director.java
 
-patterns/creational/builder/DemoClient.java: patterns/creational/builder/builders/CarBuilder, patterns/creational/builder/builders/CarManualBuilder, patterns/creational/builder/cars/Car, patterns/creational/builder/cars/Manual, patterns/creational/builder/director/Director
-patterns/creational/builder/builders/CarManualBuilder.java: patterns/creational/builder/cars, patterns/creational/builder/components
-patterns/creational/builder/builders/CarBuilder.java: patterns/creational/builder/cars, patterns/creational/builder/components
-patterns/creational/builder/builders/Builder.java: patterns/creational/builder/cars, patterns/creational/builder/components
-patterns/creational/builder/director/Director.java: patterns/creational/builder/builders/Builder, patterns/creational/builder/cars/Type, patterns/creational/builder/components
-patterns/creational/builder/components/TripComputer.java: patterns/creational/builder/cars/Car
-patterns/creational/builder/components/GPSNavigator.java: 
-patterns/creational/builder/components/Engine.java: 
-patterns/creational/builder/components/Transmission.java: 
-patterns/creational/builder/cars/Type.java: 
-patterns/creational/builder/cars/Manual.java: patterns/creational/builder/components
-patterns/creational/builder/cars/Car.java: patterns/creational/builder/components
+patterns/creational/builder\DemoClient.java: patterns/creational/builder/builders/CarBuilder, patterns/creational/builder/builders/CarManualBuilder, patterns/creational/builder/cars/Car, patterns/creational/builder/cars/Manual, patterns/creational/builder/director/Director
+patterns/creational/builder\builders\Builder.java: patterns/creational/builder/cars, patterns/creational/builder/components
+patterns/creational/builder\builders\CarBuilder.java: patterns/creational/builder/cars, patterns/creational/builder/components
+patterns/creational/builder\builders\CarManualBuilder.java: patterns/creational/builder/cars, patterns/creational/builder/components
+patterns/creational/builder\cars\Car.java: patterns/creational/builder/components
+patterns/creational/builder\cars\Manual.java: patterns/creational/builder/components
+patterns/creational/builder\cars\Type.java: 
+patterns/creational/builder\components\Engine.java: 
+patterns/creational/builder\components\GPSNavigator.java: 
+patterns/creational/builder\components\Transmission.java: 
+patterns/creational/builder\components\TripComputer.java: patterns/creational/builder/cars/Car
+patterns/creational/builder\director\Director.java: patterns/creational/builder/builders/Builder, patterns/creational/builder/cars/Type, patterns/creational/builder/components
 
 
 patterns/creational/factorymethod
-patterns/creational/factorymethod/Demo.java, patterns/creational/factorymethod/buttons/WindowsButton.java, patterns/creational/factorymethod/buttons/Button.java, patterns/creational/factorymethod/buttons/HtmlButton.java, patterns/creational/factorymethod/factory/WindowsDialog.java, patterns/creational/factorymethod/factory/Dialog.java, patterns/creational/factorymethod/factory/HtmlDialog.java
+patterns/creational/factorymethod\Demo.java, patterns/creational/factorymethod\buttons\Button.java, patterns/creational/factorymethod\buttons\HtmlButton.java, patterns/creational/factorymethod\buttons\WindowsButton.java, patterns/creational/factorymethod\factory\Dialog.java, patterns/creational/factorymethod\factory\HtmlDialog.java, patterns/creational/factorymethod\factory\WindowsDialog.java
 
-patterns/creational/factorymethod/Demo.java: patterns/creational/factorymethod/factory/Dialog, patterns/creational/factorymethod/factory/HtmlDialog, patterns/creational/factorymethod/factory/WindowsDialog
-patterns/creational/factorymethod/buttons/WindowsButton.java: 
-patterns/creational/factorymethod/buttons/Button.java: 
-patterns/creational/factorymethod/buttons/HtmlButton.java: 
-patterns/creational/factorymethod/factory/WindowsDialog.java: patterns/creational/factorymethod/buttons/Button, patterns/creational/factorymethod/buttons/WindowsButton
-patterns/creational/factorymethod/factory/Dialog.java: patterns/creational/factorymethod/buttons/Button
-patterns/creational/factorymethod/factory/HtmlDialog.java: patterns/creational/factorymethod/buttons/Button, patterns/creational/factorymethod/buttons/HtmlButton
+patterns/creational/factorymethod\Demo.java: patterns/creational/factorymethod/factory/Dialog, patterns/creational/factorymethod/factory/HtmlDialog, patterns/creational/factorymethod/factory/WindowsDialog
+patterns/creational/factorymethod\buttons\Button.java: 
+patterns/creational/factorymethod\buttons\HtmlButton.java: 
+patterns/creational/factorymethod\buttons\WindowsButton.java: 
+patterns/creational/factorymethod\factory\Dialog.java: patterns/creational/factorymethod/buttons/Button
+patterns/creational/factorymethod\factory\HtmlDialog.java: patterns/creational/factorymethod/buttons/Button, patterns/creational/factorymethod/buttons/HtmlButton
+patterns/creational/factorymethod\factory\WindowsDialog.java: patterns/creational/factorymethod/buttons/Button, patterns/creational/factorymethod/buttons/WindowsButton
 
 
 patterns/creational/prototype
-patterns/creational/prototype/Demo.java, patterns/creational/prototype/shapes/Circle.java, patterns/creational/prototype/shapes/Rectangle.java, patterns/creational/prototype/shapes/Shape.java
+patterns/creational/prototype\Demo.java, patterns/creational/prototype\shapes\Circle.java, patterns/creational/prototype\shapes\Rectangle.java, patterns/creational/prototype\shapes\Shape.java
 
-patterns/creational/prototype/Demo.java: patterns/creational/prototype/shapes
-patterns/creational/prototype/shapes/Circle.java: 
-patterns/creational/prototype/shapes/Rectangle.java: 
-patterns/creational/prototype/shapes/Shape.java: 
+patterns/creational/prototype\Demo.java: patterns/creational/prototype/shapes
+patterns/creational/prototype\shapes\Circle.java: 
+patterns/creational/prototype\shapes\Rectangle.java: 
+patterns/creational/prototype\shapes\Shape.java: 
 
 
 patterns/creational/singleton
-patterns/creational/singleton/non_thread_safe/DemoMultiThread.java, patterns/creational/singleton/non_thread_safe/DemoSingleThread.java, patterns/creational/singleton/non_thread_safe/Singleton.java, patterns/creational/singleton/thread_safe/DemoMultiThread.java, patterns/creational/singleton/thread_safe/Singleton.java
+patterns/creational/singleton\non_thread_safe\DemoMultiThread.java, patterns/creational/singleton\non_thread_safe\DemoSingleThread.java, patterns/creational/singleton\non_thread_safe\Singleton.java, patterns/creational/singleton\thread_safe\DemoMultiThread.java, patterns/creational/singleton\thread_safe\Singleton.java
 
-patterns/creational/singleton/non_thread_safe/DemoMultiThread.java: 
-patterns/creational/singleton/non_thread_safe/DemoSingleThread.java: 
-patterns/creational/singleton/non_thread_safe/Singleton.java: 
-patterns/creational/singleton/thread_safe/DemoMultiThread.java: 
-patterns/creational/singleton/thread_safe/Singleton.java: 
+patterns/creational/singleton\non_thread_safe\DemoMultiThread.java: 
+patterns/creational/singleton\non_thread_safe\DemoSingleThread.java: 
+patterns/creational/singleton\non_thread_safe\Singleton.java: 
+patterns/creational/singleton\thread_safe\DemoMultiThread.java: 
+patterns/creational/singleton\thread_safe\Singleton.java: 
 
 
 patterns/structural/adapter
-patterns/structural/adapter/Demo.java, patterns/structural/adapter/square/SquarePeg.java, patterns/structural/adapter/adapters/SquarePegAdapter.java, patterns/structural/adapter/round/RoundPeg.java, patterns/structural/adapter/round/RoundHole.java
+patterns/structural/adapter\Demo.java, patterns/structural/adapter\adapters\SquarePegAdapter.java, patterns/structural/adapter\round\RoundHole.java, patterns/structural/adapter\round\RoundPeg.java, patterns/structural/adapter\square\SquarePeg.java
 
-patterns/structural/adapter/Demo.java: patterns/structural/adapter/adapters/SquarePegAdapter, patterns/structural/adapter/round/RoundHole, patterns/structural/adapter/round/RoundPeg, patterns/structural/adapter/square/SquarePeg
-patterns/structural/adapter/square/SquarePeg.java: 
-patterns/structural/adapter/adapters/SquarePegAdapter.java: patterns/structural/adapter/round/RoundPeg, patterns/structural/adapter/square/SquarePeg
-patterns/structural/adapter/round/RoundPeg.java: 
-patterns/structural/adapter/round/RoundHole.java: 
+patterns/structural/adapter\Demo.java: patterns/structural/adapter/adapters/SquarePegAdapter, patterns/structural/adapter/round/RoundHole, patterns/structural/adapter/round/RoundPeg, patterns/structural/adapter/square/SquarePeg
+patterns/structural/adapter\adapters\SquarePegAdapter.java: patterns/structural/adapter/round/RoundPeg, patterns/structural/adapter/square/SquarePeg
+patterns/structural/adapter\round\RoundHole.java: 
+patterns/structural/adapter\round\RoundPeg.java: 
+patterns/structural/adapter\square\SquarePeg.java: 
 
 
 patterns/structural/bridge
-patterns/structural/bridge/Demo.java, patterns/structural/bridge/remotes/Remote.java, patterns/structural/bridge/remotes/BasicRemote.java, patterns/structural/bridge/remotes/AdvancedRemote.java, patterns/structural/bridge/devices/Radio.java, patterns/structural/bridge/devices/Tv.java, patterns/structural/bridge/devices/Device.java
+patterns/structural/bridge\Demo.java, patterns/structural/bridge\devices\Device.java, patterns/structural/bridge\devices\Radio.java, patterns/structural/bridge\devices\Tv.java, patterns/structural/bridge\remotes\AdvancedRemote.java, patterns/structural/bridge\remotes\BasicRemote.java, patterns/structural/bridge\remotes\Remote.java
 
-patterns/structural/bridge/Demo.java: patterns/structural/bridge/devices/Device, patterns/structural/bridge/devices/Radio, patterns/structural/bridge/devices/Tv, patterns/structural/bridge/remotes/AdvancedRemote, patterns/structural/bridge/remotes/BasicRemote
-patterns/structural/bridge/remotes/Remote.java: 
-patterns/structural/bridge/remotes/BasicRemote.java: patterns/structural/bridge/devices/Device
-patterns/structural/bridge/remotes/AdvancedRemote.java: patterns/structural/bridge/devices/Device
-patterns/structural/bridge/devices/Radio.java: 
-patterns/structural/bridge/devices/Tv.java: 
-patterns/structural/bridge/devices/Device.java: 
+patterns/structural/bridge\Demo.java: patterns/structural/bridge/devices/Device, patterns/structural/bridge/devices/Radio, patterns/structural/bridge/devices/Tv, patterns/structural/bridge/remotes/AdvancedRemote, patterns/structural/bridge/remotes/BasicRemote
+patterns/structural/bridge\devices\Device.java: 
+patterns/structural/bridge\devices\Radio.java: 
+patterns/structural/bridge\devices\Tv.java: 
+patterns/structural/bridge\remotes\AdvancedRemote.java: patterns/structural/bridge/devices/Device
+patterns/structural/bridge\remotes\BasicRemote.java: patterns/structural/bridge/devices/Device
+patterns/structural/bridge\remotes\Remote.java: 
 
 
 patterns/structural/composite
-patterns/structural/composite/Demo.java, patterns/structural/composite/shapes/BaseShape.java, patterns/structural/composite/shapes/CompoundShape.java, patterns/structural/composite/shapes/Circle.java, patterns/structural/composite/shapes/Rectangle.java, patterns/structural/composite/shapes/Dot.java, patterns/structural/composite/shapes/Shape.java, patterns/structural/composite/editor/ImageEditor.java
+patterns/structural/composite\Demo.java, patterns/structural/composite\editor\ImageEditor.java, patterns/structural/composite\shapes\BaseShape.java, patterns/structural/composite\shapes\Circle.java, patterns/structural/composite\shapes\CompoundShape.java, patterns/structural/composite\shapes\Dot.java, patterns/structural/composite\shapes\Rectangle.java, patterns/structural/composite\shapes\Shape.java
 
-patterns/structural/composite/Demo.java: patterns/structural/composite/editor/ImageEditor, patterns/structural/composite/shapes/Circle, patterns/structural/composite/shapes/CompoundShape, patterns/structural/composite/shapes/Dot, patterns/structural/composite/shapes/Rectangle
-patterns/structural/composite/shapes/BaseShape.java: 
-patterns/structural/composite/shapes/CompoundShape.java: 
-patterns/structural/composite/shapes/Circle.java: 
-patterns/structural/composite/shapes/Rectangle.java: 
-patterns/structural/composite/shapes/Dot.java: 
-patterns/structural/composite/shapes/Shape.java: 
-patterns/structural/composite/editor/ImageEditor.java: patterns/structural/composite/shapes/CompoundShape, patterns/structural/composite/shapes/Shape
+patterns/structural/composite\Demo.java: patterns/structural/composite/editor/ImageEditor, patterns/structural/composite/shapes/Circle, patterns/structural/composite/shapes/CompoundShape, patterns/structural/composite/shapes/Dot, patterns/structural/composite/shapes/Rectangle
+patterns/structural/composite\editor\ImageEditor.java: patterns/structural/composite/shapes/CompoundShape, patterns/structural/composite/shapes/Shape
+patterns/structural/composite\shapes\BaseShape.java: 
+patterns/structural/composite\shapes\Circle.java: 
+patterns/structural/composite\shapes\CompoundShape.java: 
+patterns/structural/composite\shapes\Dot.java: 
+patterns/structural/composite\shapes\Rectangle.java: 
+patterns/structural/composite\shapes\Shape.java: 
 
 
 patterns/structural/decorator
-patterns/structural/decorator/Demo.java, patterns/structural/decorator/decorators/CompressionDecorator.java, patterns/structural/decorator/decorators/EncryptionDecorator.java, patterns/structural/decorator/decorators/DataSourceDecorator.java, patterns/structural/decorator/decorators/FileDataSource.java, patterns/structural/decorator/decorators/DataSource.java
+patterns/structural/decorator\Demo.java, patterns/structural/decorator\decorators\CompressionDecorator.java, patterns/structural/decorator\decorators\DataSource.java, patterns/structural/decorator\decorators\DataSourceDecorator.java, patterns/structural/decorator\decorators\EncryptionDecorator.java, patterns/structural/decorator\decorators\FileDataSource.java
 
-patterns/structural/decorator/Demo.java: patterns/structural/decorator/decorators/CompressionDecorator, patterns/structural/decorator/decorators/DataSource, patterns/structural/decorator/decorators/DataSourceDecorator, patterns/structural/decorator/decorators/EncryptionDecorator, patterns/structural/decorator/decorators/FileDataSource
-patterns/structural/decorator/decorators/CompressionDecorator.java: 
-patterns/structural/decorator/decorators/EncryptionDecorator.java: 
-patterns/structural/decorator/decorators/DataSourceDecorator.java: 
-patterns/structural/decorator/decorators/FileDataSource.java: 
-patterns/structural/decorator/decorators/DataSource.java: 
+patterns/structural/decorator\Demo.java: patterns/structural/decorator/decorators/CompressionDecorator, patterns/structural/decorator/decorators/DataSource, patterns/structural/decorator/decorators/DataSourceDecorator, patterns/structural/decorator/decorators/EncryptionDecorator, patterns/structural/decorator/decorators/FileDataSource
+patterns/structural/decorator\decorators\CompressionDecorator.java: 
+patterns/structural/decorator\decorators\DataSource.java: 
+patterns/structural/decorator\decorators\DataSourceDecorator.java: 
+patterns/structural/decorator\decorators\EncryptionDecorator.java: 
+patterns/structural/decorator\decorators\FileDataSource.java: 
 
 
 patterns/structural/facade
-patterns/structural/facade/Demo.java, patterns/structural/facade/facade/VideoConversionFacade.java, patterns/structural/facade/some_complex_media_library/BitrateReader.java, patterns/structural/facade/some_complex_media_library/VideoFile.java, patterns/structural/facade/some_complex_media_library/AudioMixer.java, patterns/structural/facade/some_complex_media_library/OggCompressionCodec.java, patterns/structural/facade/some_complex_media_library/MPEG4CompressionCodec.java, patterns/structural/facade/some_complex_media_library/Codec.java, patterns/structural/facade/some_complex_media_library/CodecFactory.java
+patterns/structural/facade\Demo.java, patterns/structural/facade\facade\VideoConversionFacade.java, patterns/structural/facade\some_complex_media_library\AudioMixer.java, patterns/structural/facade\some_complex_media_library\BitrateReader.java, patterns/structural/facade\some_complex_media_library\Codec.java, patterns/structural/facade\some_complex_media_library\CodecFactory.java, patterns/structural/facade\some_complex_media_library\MPEG4CompressionCodec.java, patterns/structural/facade\some_complex_media_library\OggCompressionCodec.java, patterns/structural/facade\some_complex_media_library\VideoFile.java
 
-patterns/structural/facade/Demo.java: patterns/structural/facade/facade/VideoConversionFacade
-patterns/structural/facade/facade/VideoConversionFacade.java: patterns/structural/facade/some_complex_media_library
-patterns/structural/facade/some_complex_media_library/BitrateReader.java: 
-patterns/structural/facade/some_complex_media_library/VideoFile.java: 
-patterns/structural/facade/some_complex_media_library/AudioMixer.java: 
-patterns/structural/facade/some_complex_media_library/OggCompressionCodec.java: 
-patterns/structural/facade/some_complex_media_library/MPEG4CompressionCodec.java: 
-patterns/structural/facade/some_complex_media_library/Codec.java: 
-patterns/structural/facade/some_complex_media_library/CodecFactory.java: 
+patterns/structural/facade\Demo.java: patterns/structural/facade/facade/VideoConversionFacade
+patterns/structural/facade\facade\VideoConversionFacade.java: patterns/structural/facade/some_complex_media_library
+patterns/structural/facade\some_complex_media_library\AudioMixer.java: 
+patterns/structural/facade\some_complex_media_library\BitrateReader.java: 
+patterns/structural/facade\some_complex_media_library\Codec.java: 
+patterns/structural/facade\some_complex_media_library\CodecFactory.java: 
+patterns/structural/facade\some_complex_media_library\MPEG4CompressionCodec.java: 
+patterns/structural/facade\some_complex_media_library\OggCompressionCodec.java: 
+patterns/structural/facade\some_complex_media_library\VideoFile.java: 
 
 
 patterns/structural/flyweight
-patterns/structural/flyweight/Demo.java, patterns/structural/flyweight/forest/Forest.java, patterns/structural/flyweight/trees/Tree.java, patterns/structural/flyweight/trees/TreeType.java, patterns/structural/flyweight/trees/TreeFactory.java
+patterns/structural/flyweight\Demo.java, patterns/structural/flyweight\forest\Forest.java, patterns/structural/flyweight\trees\Tree.java, patterns/structural/flyweight\trees\TreeFactory.java, patterns/structural/flyweight\trees\TreeType.java
 
-patterns/structural/flyweight/Demo.java: patterns/structural/flyweight/forest/Forest
-patterns/structural/flyweight/forest/Forest.java: patterns/structural/flyweight/trees/Tree, patterns/structural/flyweight/trees/TreeFactory, patterns/structural/flyweight/trees/TreeType
-patterns/structural/flyweight/trees/Tree.java: 
-patterns/structural/flyweight/trees/TreeType.java: 
-patterns/structural/flyweight/trees/TreeFactory.java: 
+patterns/structural/flyweight\Demo.java: patterns/structural/flyweight/forest/Forest
+patterns/structural/flyweight\forest\Forest.java: patterns/structural/flyweight/trees/Tree, patterns/structural/flyweight/trees/TreeFactory, patterns/structural/flyweight/trees/TreeType
+patterns/structural/flyweight\trees\Tree.java: 
+patterns/structural/flyweight\trees\TreeFactory.java: 
+patterns/structural/flyweight\trees\TreeType.java: 
 
 
 patterns/structural/proxy
-patterns/structural/proxy/Demo.java, patterns/structural/proxy/proxy/YoutubeCacheProxy.java, patterns/structural/proxy/downloader/YoutubeDownloader.java, patterns/structural/proxy/some_cool_media_library/Video.java, patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeLib.java, patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeClass.java
+patterns/structural/proxy\Demo.java, patterns/structural/proxy\downloader\YoutubeDownloader.java, patterns/structural/proxy\proxy\YoutubeCacheProxy.java, patterns/structural/proxy\some_cool_media_library\ThirdPartyYoutubeClass.java, patterns/structural/proxy\some_cool_media_library\ThirdPartyYoutubeLib.java, patterns/structural/proxy\some_cool_media_library\Video.java
 
-patterns/structural/proxy/Demo.java: patterns/structural/proxy/downloader/YoutubeDownloader, patterns/structural/proxy/proxy/YoutubeCacheProxy, patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeClass
-patterns/structural/proxy/proxy/YoutubeCacheProxy.java: patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeClass, patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeLib, patterns/structural/proxy/some_cool_media_library/Video
-patterns/structural/proxy/downloader/YoutubeDownloader.java: patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeLib, patterns/structural/proxy/some_cool_media_library/Video
-patterns/structural/proxy/some_cool_media_library/Video.java: 
-patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeLib.java: 
-patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeClass.java: 
+patterns/structural/proxy\Demo.java: patterns/structural/proxy/downloader/YoutubeDownloader, patterns/structural/proxy/proxy/YoutubeCacheProxy, patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeClass
+patterns/structural/proxy\downloader\YoutubeDownloader.java: patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeLib, patterns/structural/proxy/some_cool_media_library/Video
+patterns/structural/proxy\proxy\YoutubeCacheProxy.java: patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeClass, patterns/structural/proxy/some_cool_media_library/ThirdPartyYoutubeLib, patterns/structural/proxy/some_cool_media_library/Video
+patterns/structural/proxy\some_cool_media_library\ThirdPartyYoutubeClass.java: 
+patterns/structural/proxy\some_cool_media_library\ThirdPartyYoutubeLib.java: 
+patterns/structural/proxy\some_cool_media_library\Video.java: 
 
 
