@@ -5,6 +5,7 @@ import sys
 import numpy as np
 import pandas as pd
 
+
 # dummy dependency for testing revs.user_stars_mean * revs.user_review_num
 # assume dependency is a global dictionary, so that Individual object do not need to copy it every time.
 # to avoid redundant calculation, only consider edge connected to classes with lager index number.
@@ -27,6 +28,8 @@ import pandas as pd
 #     15: [],
 #     16: []
 # }
+
+
 test_dependency = {
     0: [1, 2, 3],
     1: [0, 2, 3],
@@ -46,6 +49,7 @@ test_dependency = {
     15: [12, 13, 14, 16],
     16: [12, 13, 14, 15]
 }
+
 
 class Individual:
     """
@@ -68,10 +72,8 @@ class Individual:
 
     @staticmethod
     def calc_intra_conn(cluster_, dependency):
-        print(dependency)
         u = 0
         for class_ in cluster_:
-            # NEW TODO: need change
             for item in dependency[class_]:
                 if item in cluster_:
                     u += 1
@@ -91,7 +93,7 @@ class Individual:
             return 0
         return (e*0.5)/len(cluster_i)/len(cluster_i)
 
-    # TODO: MQ score + 1
+    # NEW TODO: global dependency?
     def calc_fitness(self, dependency):
         self.fitness = 0
         clusters = pd.Series(range(self.num_nodes)).groupby(self.encoding).apply(list).tolist()
@@ -100,6 +102,7 @@ class Individual:
 
         total_intra_conn = 0
         total_inter_conn = 0
+
         for curr_cluster in clusters:
             intra_score = self.calc_intra_conn(curr_cluster, dependency)
             logging.debug("cluster intra:\t{}".format(intra_score))
@@ -121,7 +124,6 @@ class Individual:
         self.fitness = mq+1
         logging.debug("fitness score: {}".format(self.fitness))
 
-
     def __repr__(self):
         return ''.join([str(int) for int in self.encoding]) + " -> fitness: " + str(self.fitness)
 
@@ -137,6 +139,7 @@ class Individual:
         return cluster
 
     def consistent_algorithm(self):
+        """ normalization algorithm """
         S = np.zeros(len(self.encoding))
         label = 1
         for i in range(len(S)):
@@ -176,13 +179,13 @@ class Individual:
 
         # TODO: odd number --> return the best child
         # NEW TODO: modify? not calculate and compare here, compare in population
-        if ind_len % 2 != 0:
-            child.calc_fitness()
-            child2 = Individual(ind_len, self.k)
-            child2.encoding = []
-            child2.encoding = self.encoding[:ind_len // 2 + 1] + partner.encoding[ind_len // 2 + 1:]
-            child2.calc_fitness()
-            child = child2 if (child.fitness < child2.fitness) else child
+        # if ind_len % 2 != 0:
+        #     child.calc_fitness()
+        #     child2 = Individual(ind_len, self.k)
+        #     child2.encoding = []
+        #     child2.encoding = self.encoding[:ind_len // 2 + 1] + partner.encoding[ind_len // 2 + 1:]
+        #     child2.calc_fitness()
+        #     child = child2 if (child.fitness < child2.fitness) else child
 
         return child
 

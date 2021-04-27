@@ -6,6 +6,7 @@ from parse import Parser
 from parse_object import ParseObject
 
 
+
 def get_dependency(file_path, ignore_path, pkg_name, repr_name, import_start):
     obj = ParseObject()
     obj.set_strct_file_path(file_path)
@@ -15,16 +16,18 @@ def get_dependency(file_path, ignore_path, pkg_name, repr_name, import_start):
     obj.set_text_repr_name(repr_name)
     obj.set_valid_import_start(import_start)
     Parser(obj).parse()
-    return obj.dependency
+    return obj.dependency, obj.structure
 
 
-def main(dependency):
-    pop_size = 200  # NEED TODO: file number
-    num_nodes = 17  # NEED TODO: file number
-    mutation_rate = 0.02    #TODO: tune
+def run_GA(dependency, structure):
+    num_nodes = len(structure)
+    pop_size = num_nodes * 10
+    stop_generations = num_nodes * 200
+    # pop_size = 200  # NEED TODO: file number
+    # num_nodes = 17  # NEED TODO: file number
+    mutation_rate = 0.02    # TODO: tune
     # k, target number of clusters
     k = 4  # TODO: tune
-    stop_generations = 1000 # TODO: tune, calculate
 
     pop = Population(pop_size, num_nodes, mutation_rate, k, stop_generations, dependency)
 
@@ -53,13 +56,27 @@ def test_normalization():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print('ERROR: Please input the source code path in the argument!\n'
+              'EX: easyexcel-master or DesignPatterns-master')
+    else:
+        if sys.argv[1].lower() == 'easyexcel-master':
+            dependency, structure = get_dependency('easyExcel_strct.txt', 'easyexcel-master/src/main/java/',
+                                                    '/excel', 'easyExcel_repr.txt', 'com.alibaba')
+            # TODO: map_dependency()
+            run_GA(dependency, structure)
+            # TODO: show_result
+
+        elif sys.argv[1].lower() == 'designpatterns-master':
+            dependency, structure = get_dependency('designPattern_strct.txt', 'DesignPatterns-master/src/',
+                                                    '', 'designPattern_repr.txt', 'patterns')
+            # TODO: map_dependency()
+            run_GA(dependency, structure)
+            # TODO: show_result()
+        else:
+            print('ERROR: Please input a valid source code path!\n'
+                  'EX: easyexcel-master or DesignPatterns-master')
     # fitness_test()
     # main()
     # test_normalization()
-    # dp_dependency = get_dependency('designPattern_strct.txt', 'DesignPatterns-master/src/',
-    #                                '', 'designPattern_repr.txt', 'patterns')
-    # print(dp_dependency)
-    # main(dp_dependency)
-    ex_dependency = get_dependency('easyExcel_strct.txt', 'easyexcel-master/src/main/java/',
-                                   '/excel', 'easyExcel_repr.txt', 'com.alibaba')
-    print(ex_dependency)
+
