@@ -6,6 +6,9 @@ class ParseObject:
         # dict of node to list of dependent nodes
         self.dependency = {}
 
+        # mapping each node to a number
+        self.node_to_num = {}
+        
         self.ignore_path = ""
         self.valid_import_start = ""
         self.valid_file_end = ""

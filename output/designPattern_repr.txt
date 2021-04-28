@@ -127,13 +127,13 @@ patterns/behavioral/template_method/networks/Facebook.java:
 patterns/behavioral/visitor
 patterns/behavioral/visitor/Demo.java, patterns/behavioral/visitor/shapes/CompoundShape.java, patterns/behavioral/visitor/shapes/Circle.java, patterns/behavioral/visitor/shapes/Rectangle.java, patterns/behavioral/visitor/shapes/Dot.java, patterns/behavioral/visitor/shapes/Shape.java, patterns/behavioral/visitor/visitor/XMLExportVisitor.java, patterns/behavioral/visitor/visitor/Visitor.java
 
-patterns/behavioral/visitor/Demo.java: patterns/behavioral/visitor/shapes, patterns/behavioral/visitor/visitor/XMLExportVisitor
+patterns/behavioral/visitor/Demo.java: patterns/behavioral/visitor/shapes/CompoundShape, patterns/behavioral/visitor/shapes/Circle, patterns/behavioral/visitor/shapes/Rectangle, patterns/behavioral/visitor/shapes/Dot, patterns/behavioral/visitor/shapes/Shape, patterns/behavioral/visitor/visitor/XMLExportVisitor
 patterns/behavioral/visitor/shapes/CompoundShape.java: patterns/behavioral/visitor/visitor/Visitor
 patterns/behavioral/visitor/shapes/Circle.java: patterns/behavioral/visitor/visitor/Visitor
 patterns/behavioral/visitor/shapes/Rectangle.java: patterns/behavioral/visitor/visitor/Visitor
 patterns/behavioral/visitor/shapes/Dot.java: patterns/behavioral/visitor/visitor/Visitor
 patterns/behavioral/visitor/shapes/Shape.java: patterns/behavioral/visitor/visitor/Visitor
-patterns/behavioral/visitor/visitor/XMLExportVisitor.java: patterns/behavioral/visitor/shapes
+patterns/behavioral/visitor/visitor/XMLExportVisitor.java: patterns/behavioral/visitor/shapes/CompoundShape, patterns/behavioral/visitor/shapes/Circle, patterns/behavioral/visitor/shapes/Rectangle, patterns/behavioral/visitor/shapes/Dot, patterns/behavioral/visitor/shapes/Shape
 patterns/behavioral/visitor/visitor/Visitor.java: patterns/behavioral/visitor/shapes/Circle, patterns/behavioral/visitor/shapes/CompoundShape, patterns/behavioral/visitor/shapes/Dot, patterns/behavioral/visitor/shapes/Rectangle
 
 
@@ -157,17 +157,17 @@ patterns/creational/builder
 patterns/creational/builder/DemoClient.java, patterns/creational/builder/builders/CarManualBuilder.java, patterns/creational/builder/builders/CarBuilder.java, patterns/creational/builder/builders/Builder.java, patterns/creational/builder/director/Director.java, patterns/creational/builder/components/TripComputer.java, patterns/creational/builder/components/GPSNavigator.java, patterns/creational/builder/components/Engine.java, patterns/creational/builder/components/Transmission.java, patterns/creational/builder/cars/Type.java, patterns/creational/builder/cars/Manual.java, patterns/creational/builder/cars/Car.java
 
 patterns/creational/builder/DemoClient.java: patterns/creational/builder/builders/CarBuilder, patterns/creational/builder/builders/CarManualBuilder, patterns/creational/builder/cars/Car, patterns/creational/builder/cars/Manual, patterns/creational/builder/director/Director
-patterns/creational/builder/builders/CarManualBuilder.java: patterns/creational/builder/cars, patterns/creational/builder/components
-patterns/creational/builder/builders/CarBuilder.java: patterns/creational/builder/cars, patterns/creational/builder/components
-patterns/creational/builder/builders/Builder.java: patterns/creational/builder/cars, patterns/creational/builder/components
-patterns/creational/builder/director/Director.java: patterns/creational/builder/builders/Builder, patterns/creational/builder/cars/Type, patterns/creational/builder/components
+patterns/creational/builder/builders/CarManualBuilder.java: patterns/creational/builder/cars/Type, patterns/creational/builder/cars/Manual, patterns/creational/builder/cars/Car, patterns/creational/builder/components/TripComputer, patterns/creational/builder/components/GPSNavigator, patterns/creational/builder/components/Engine, patterns/creational/builder/components/Transmission
+patterns/creational/builder/builders/CarBuilder.java: patterns/creational/builder/cars/Type, patterns/creational/builder/cars/Manual, patterns/creational/builder/cars/Car, patterns/creational/builder/components/TripComputer, patterns/creational/builder/components/GPSNavigator, patterns/creational/builder/components/Engine, patterns/creational/builder/components/Transmission
+patterns/creational/builder/builders/Builder.java: patterns/creational/builder/cars/Type, patterns/creational/builder/cars/Manual, patterns/creational/builder/cars/Car, patterns/creational/builder/components/TripComputer, patterns/creational/builder/components/GPSNavigator, patterns/creational/builder/components/Engine, patterns/creational/builder/components/Transmission
+patterns/creational/builder/director/Director.java: patterns/creational/builder/builders/Builder, patterns/creational/builder/cars/Type, patterns/creational/builder/components/TripComputer, patterns/creational/builder/components/GPSNavigator, patterns/creational/builder/components/Engine, patterns/creational/builder/components/Transmission
 patterns/creational/builder/components/TripComputer.java: patterns/creational/builder/cars/Car
 patterns/creational/builder/components/GPSNavigator.java: 
 patterns/creational/builder/components/Engine.java: 
 patterns/creational/builder/components/Transmission.java: 
 patterns/creational/builder/cars/Type.java: 
-patterns/creational/builder/cars/Manual.java: patterns/creational/builder/components
-patterns/creational/builder/cars/Car.java: patterns/creational/builder/components
+patterns/creational/builder/cars/Manual.java: patterns/creational/builder/components/TripComputer, patterns/creational/builder/components/GPSNavigator, patterns/creational/builder/components/Engine, patterns/creational/builder/components/Transmission
+patterns/creational/builder/cars/Car.java: patterns/creational/builder/components/TripComputer, patterns/creational/builder/components/GPSNavigator, patterns/creational/builder/components/Engine, patterns/creational/builder/components/Transmission
 
 
 patterns/creational/factorymethod
@@ -185,7 +185,7 @@ patterns/creational/factorymethod/factory/HtmlDialog.java: patterns/creational/f
 patterns/creational/prototype
 patterns/creational/prototype/Demo.java, patterns/creational/prototype/shapes/Circle.java, patterns/creational/prototype/shapes/Rectangle.java, patterns/creational/prototype/shapes/Shape.java
 
-patterns/creational/prototype/Demo.java: patterns/creational/prototype/shapes
+patterns/creational/prototype/Demo.java: patterns/creational/prototype/shapes/Circle, patterns/creational/prototype/shapes/Rectangle, patterns/creational/prototype/shapes/Shape
 patterns/creational/prototype/shapes/Circle.java: 
 patterns/creational/prototype/shapes/Rectangle.java: 
 patterns/creational/prototype/shapes/Shape.java: 
@@ -251,7 +251,7 @@ patterns/structural/facade
 patterns/structural/facade/Demo.java, patterns/structural/facade/facade/VideoConversionFacade.java, patterns/structural/facade/some_complex_media_library/BitrateReader.java, patterns/structural/facade/some_complex_media_library/VideoFile.java, patterns/structural/facade/some_complex_media_library/AudioMixer.java, patterns/structural/facade/some_complex_media_library/OggCompressionCodec.java, patterns/structural/facade/some_complex_media_library/MPEG4CompressionCodec.java, patterns/structural/facade/some_complex_media_library/Codec.java, patterns/structural/facade/some_complex_media_library/CodecFactory.java
 
 patterns/structural/facade/Demo.java: patterns/structural/facade/facade/VideoConversionFacade
-patterns/structural/facade/facade/VideoConversionFacade.java: patterns/structural/facade/some_complex_media_library
+patterns/structural/facade/facade/VideoConversionFacade.java: patterns/structural/facade/some_complex_media_library/BitrateReader, patterns/structural/facade/some_complex_media_library/VideoFile, patterns/structural/facade/some_complex_media_library/AudioMixer, patterns/structural/facade/some_complex_media_library/OggCompressionCodec, patterns/structural/facade/some_complex_media_library/MPEG4CompressionCodec, patterns/structural/facade/some_complex_media_library/Codec, patterns/structural/facade/some_complex_media_library/CodecFactory
 patterns/structural/facade/some_complex_media_library/BitrateReader.java: 
 patterns/structural/facade/some_complex_media_library/VideoFile.java: 
 patterns/structural/facade/some_complex_media_library/AudioMixer.java: 

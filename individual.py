@@ -5,7 +5,8 @@ import sys
 import numpy as np
 import pandas as pd
 
-# dummy dependency for testing
+
+# dummy dependency for testing revs.user_stars_mean * revs.user_review_num
 # assume dependency is a global dictionary, so that Individual object do not need to copy it every time.
 # to avoid redundant calculation, only consider edge connected to classes with lager index number.
 # dependency = {
@@ -27,7 +28,9 @@ import pandas as pd
 #     15: [],
 #     16: []
 # }
-dependency = {
+
+
+test_dependency = {
     0: [1, 2, 3],
     1: [0, 2, 3],
     2: [0, 1, 3],
@@ -46,6 +49,7 @@ dependency = {
     15: [12, 13, 14, 16],
     16: [12, 13, 14, 15]
 }
+
 
 class Individual:
     """
@@ -67,7 +71,7 @@ class Individual:
     #     return temp
 
     @staticmethod
-    def calc_intra_conn(cluster_):
+    def calc_intra_conn(cluster_, dependency):
         u = 0
         for class_ in cluster_:
             for item in dependency[class_]:
@@ -79,7 +83,7 @@ class Individual:
         return u/(ni**2)
 
     @staticmethod
-    def calc_inter_conn(cluster_i, cluster_j):
+    def calc_inter_conn(cluster_i, cluster_j, dependency):
         e = 0
         for node_i in cluster_i:
             for item in dependency[node_i]:
@@ -89,8 +93,8 @@ class Individual:
             return 0
         return (e*0.5)/len(cluster_i)/len(cluster_i)
 
-    # TODO: MQ score + 1
-    def calc_fitness(self):
+    # NEW TODO: global dependency?
+    def calc_fitness(self, dependency):
         self.fitness = 0
         clusters = pd.Series(range(self.num_nodes)).groupby(self.encoding).apply(list).tolist()
         logging.debug("Grouped encoding into {} clustes; target cluster size: {}".format(len(clusters), self.k))
@@ -98,14 +102,15 @@ class Individual:
 
         total_intra_conn = 0
         total_inter_conn = 0
+
         for curr_cluster in clusters:
-            intra_score = self.calc_intra_conn(curr_cluster)
+            intra_score = self.calc_intra_conn(curr_cluster, dependency)
             logging.debug("cluster intra:\t{}".format(intra_score))
             total_intra_conn += intra_score
 
         for i in range(actual_k-1):
             for j in range(i+1, actual_k):
-                inter_score = self.calc_inter_conn(clusters[i], clusters[j])
+                inter_score = self.calc_inter_conn(clusters[i], clusters[j], dependency)
                 total_inter_conn += inter_score
                 logging.debug("cluster {} {} inter:\t{}".format(i + 1, j + 1, inter_score))
 
@@ -118,7 +123,6 @@ class Individual:
         # normalize MQ to non-negative value for wheel selection easiness
         self.fitness = mq+1
         logging.debug("fitness score: {}".format(self.fitness))
-
 
     def __repr__(self):
         return ''.join([str(int) for int in self.encoding]) + " -> fitness: " + str(self.fitness)
@@ -135,6 +139,7 @@ class Individual:
         return cluster
 
     def consistent_algorithm(self):
+        """ normalization algorithm """
         S = np.zeros(len(self.encoding))
         label = 1
         for i in range(len(S)):
@@ -173,13 +178,14 @@ class Individual:
         child.encoding = self.encoding[:ind_len // 2] + partner.encoding[ind_len // 2:]
 
         # TODO: odd number --> return the best child
-        if ind_len % 2 != 0:
-            child.calc_fitness()
-            child2 = Individual(ind_len, self.k)
-            child2.encoding = []
-            child2.encoding = self.encoding[:ind_len // 2 + 1] + partner.encoding[ind_len // 2 + 1:]
-            child2.calc_fitness()
-            child = child2 if (child.fitness < child2.fitness) else child
+        # NEW TODO: modify? not calculate and compare here, compare in population
+        # if ind_len % 2 != 0:
+        #     child.calc_fitness()
+        #     child2 = Individual(ind_len, self.k)
+        #     child2.encoding = []
+        #     child2.encoding = self.encoding[:ind_len // 2 + 1] + partner.encoding[ind_len // 2 + 1:]
+        #     child2.calc_fitness()
+        #     child = child2 if (child.fitness < child2.fitness) else child
 
         return child
 

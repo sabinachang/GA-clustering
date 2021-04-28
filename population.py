@@ -8,7 +8,7 @@ class Population:
         A class that describes a population of virtual individuals
     """
 
-    def __init__(self, pop_size, num_nodes, mutation_rate, k, stop_generations):
+    def __init__(self, pop_size, num_nodes, mutation_rate, k, stop_generations, dependency):
         self.k = k  # target number of clusters
         self.population = []
         self.generations = 0
@@ -20,11 +20,12 @@ class Population:
         self.max_fitness = 0.0
         self.average_fitness = 0.0
         self.mating_pool = []
+        self.dependency = dependency
 
         # Initialize the population & Calculate the initial fitness
         for i in range(pop_size):
             ind = Individual(num_nodes, self.k)
-            ind.calc_fitness()
+            ind.calc_fitness(self.dependency)
             if ind.fitness > self.max_fitness:
                 self.max_fitness = ind.fitness
             self.average_fitness += ind.fitness
@@ -57,7 +58,7 @@ class Population:
             child = parentA.crossover(parentB)
             child.mutate(self.mutation_rate)
             child.normalize_encoding()
-            child.calc_fitness()
+            child.calc_fitness(self.dependency)
             # TODO: Enhancement
             choices = [parentA, parentB, child]
             max_idx = np.argmax([c.fitness for c in choices])
@@ -77,7 +78,7 @@ class Population:
         self.average_fitness = 0
 
         for individual in self.population:
-            # individual.calc_fitness()
+            individual.calc_fitness(self.dependency)
             if individual.fitness > self.max_fitness:
                 self.max_fitness = individual.fitness
                 self.best_ind = individual
