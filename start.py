@@ -20,8 +20,8 @@ def get_parsed_object(file_path, ignore_path, pkg_name, repr_name, import_start)
     return obj
 
 
-def run_GA(dependency, structure):
-    num_nodes = len(structure)
+def run_GA(dependency):
+    num_nodes = len(dependency)
     pop_size = num_nodes * 10   # TODO: tune
     stop_generations = num_nodes * 200
     mutation_rate = 0.02    # TODO: tune
@@ -65,15 +65,15 @@ if __name__ == "__main__":
             obj = get_parsed_object('easyExcel_strct.txt', 'easyexcel-master/src/main/java/',
                                                     '/excel', 'easyExcel_repr.txt', 'com.alibaba')
             num_dep = dependency_text_to_numerical(obj)
-            run_GA(num_dep, obj.structure)
+            run_GA(num_dep)
             # TODO: show_result
 
         elif sys.argv[1].lower() == 'designpatterns-master':
             obj = get_parsed_object('designPattern_strct.txt', 'DesignPatterns-master/src/',
                                                     '', 'designPattern_repr.txt', 'patterns')
+
             num_dep = dependency_text_to_numerical(obj)
-            print(num_dep)
-            run_GA(num_dep, obj.structure)
+            run_GA(num_dep)
             # TODO: show_result()
         else:
             print('ERROR: Please input a valid source code path!\n'
