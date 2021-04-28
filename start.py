@@ -22,10 +22,8 @@ def get_parsed_object(file_path, ignore_path, pkg_name, repr_name, import_start)
 
 def run_GA(dependency, structure):
     num_nodes = len(structure)
-    pop_size = num_nodes * 10
+    pop_size = num_nodes * 10   # TODO: tune
     stop_generations = num_nodes * 200
-    # pop_size = 200  # NEED TODO: file number
-    # num_nodes = 17  # NEED TODO: file number
     mutation_rate = 0.02    # TODO: tune
     # k, target number of clusters
     k = 4  # TODO: tune
@@ -57,6 +55,8 @@ def test_normalization():
 
 
 if __name__ == "__main__":
+    # fitness_test()
+    # test_normalization()
     if len(sys.argv) != 2:
         print('ERROR: Please input the source code path in the argument!\n'
               'EX: easyexcel-master or DesignPatterns-master')
@@ -72,12 +72,11 @@ if __name__ == "__main__":
             obj = get_parsed_object('designPattern_strct.txt', 'DesignPatterns-master/src/',
                                                     '', 'designPattern_repr.txt', 'patterns')
             num_dep = dependency_text_to_numerical(obj)
+            print(num_dep)
             run_GA(num_dep, obj.structure)
             # TODO: show_result()
         else:
             print('ERROR: Please input a valid source code path!\n'
                   'EX: easyexcel-master or DesignPatterns-master')
-    # fitness_test()
-    # main()
-    # test_normalization()
+
 
