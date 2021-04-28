@@ -47,7 +47,6 @@ class Population:
             self.mating_pool.extend([i] * n)
 
     # Generate the new population based on the natural selection function
-    # TODO: modify
     def generate_new_population(self):
         new_population = []
 
@@ -55,24 +54,38 @@ class Population:
             a, b = random.sample(self.mating_pool, 2)
             parentA, parentB = self.population[a], self.population[b]
 
-            child = parentA.crossover(parentB)
-            child.mutate(self.mutation_rate)
-            child.normalize_encoding()
-            child.calc_fitness(self.dependency)
-            # TODO: Enhancement
-            choices = [parentA, parentB, child]
+            # CROSSOVER original version
+            # child = parentA.crossover(parentB)
+            # child.mutate(self.mutation_rate)
+            # child.normalize_encoding()
+            # child.calc_fitness(self.dependency)
+
+            # # choose the best one may cause a local max
+            # choices = [parentA, parentB, child]
+            # max_idx = np.argmax([c.fitness for c in choices])
+            # choices[max_idx].consistent_algorithm()
+            # new_population.append(choices[max_idx])
+
+            # CROSSOVER2 two children version
+            child1, child2 = parentA.crossover2(parentB)
+            child1.mutate(self.mutation_rate)
+            child1.calc_fitness(self.dependency)
+            child2.mutate(self.mutation_rate)
+            child2.calc_fitness(self.dependency)
+
+            # TODO: DECISION choose the best one may cause a local max
+            choices = [parentA, parentB, child1, child2]
             max_idx = np.argmax([c.fitness for c in choices])
             choices[max_idx].consistent_algorithm()
             new_population.append(choices[max_idx])
 
-        # TODO: normalize encoding
         self.generations += 1
         self.population = new_population
 
     '''
     Compute/Identify the current "most fit" individual within the population
     '''
-    # TODO: modify fitness function
+
     def evaluate(self):
         self.max_fitness = 0
         self.average_fitness = 0
