@@ -96,8 +96,8 @@ class Individual:
     # NEW TODO: global dependency?
     def calc_fitness(self, dependency):
         self.fitness = 0
-        clusters = pd.Series(range(self.num_nodes)).groupby(self.encoding).apply(list).tolist()
-        logging.debug("Grouped encoding into {} clustes; target cluster size: {}".format(len(clusters), self.k))
+        clusters = pd.Series(range(1, self.num_nodes+1)).groupby(self.encoding).apply(list).tolist()
+        logging.debug("Grouped encoding into {} clusters; target cluster size: {}".format(len(clusters), self.k))
         actual_k = len(clusters)
 
         total_intra_conn = 0
@@ -125,7 +125,7 @@ class Individual:
         logging.debug("fitness score: {}".format(self.fitness))
 
     def __repr__(self):
-        return ''.join([str(int) for int in self.encoding]) + " -> fitness: " + str(self.fitness)
+        return ''.join([str(i) for i in self.encoding]) + " -> fitness: " + str(self.fitness)
 
     '''
     This randomly generates an individual with the given size(i.e. number of nodes),
@@ -138,8 +138,10 @@ class Individual:
             cluster.append(random.randint(1, k))
         return cluster
 
+    '''
+    normalization algorithm 
+    '''
     def consistent_algorithm(self):
-        """ normalization algorithm """
         S = np.zeros(len(self.encoding))
         label = 1
         for i in range(len(S)):
@@ -150,7 +152,6 @@ class Individual:
                         self.encoding[j] = label
                         S[j] = 1
                 label += 1
-        # print(self.encoding)
 
     '''
     This normalize the individual encoding
@@ -164,7 +165,7 @@ class Individual:
                 lowest_unused_code += 1
             else:
                 continue
-        self.encoding = [ encoding_conversion_map[old_code] for old_code in self.encoding]
+        self.encoding = [encoding_conversion_map[old_code] for old_code in self.encoding]
 
     '''
     The crossover function selects pairs of individuals to be mated, 
@@ -188,6 +189,20 @@ class Individual:
         #     child = child2 if (child.fitness < child2.fitness) else child
 
         return child
+
+    '''
+    Another crossover function
+    Randomly pick up the crossover point and generate two children
+    '''
+    def crossover2(self, partner):
+        ind_len = len(self.encoding)
+        child1, child2 = Individual(ind_len, self.k), Individual(ind_len, self.k)
+        child1.encoding, child2.encoding = [], []
+        crossPoint = random.randint(0, ind_len - 1)
+        child1.encoding = self.encoding[:crossPoint] + partner.encoding[crossPoint:]
+        child2.encoding = partner.encoding[:crossPoint] + self.encoding[crossPoint:]
+
+        return child1, child2
 
     '''
     Mutation: based on a mutation probability, 
