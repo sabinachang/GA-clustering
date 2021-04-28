@@ -2,11 +2,12 @@ import pkg_resources
 from os import walk, makedirs
 from os.path import join, isfile, split, exists
 from javalang import parse
-#from parse_object import ParseObject
 
 class Parser:
     def __init__(self, parse_object):
         self.po = parse_object
+        self.node_count = 1
+        self.node_with_wildcard = []
 
     def parse(self):
         paths = self.__read_strct_file()
@@ -25,6 +26,7 @@ class Parser:
                     self.po.structure[key] = []
                 
                 self.__add_dependencies(path)
+                self.__add_mapping(path)
                 self.__add_structure(key, path)
 
             else:
@@ -40,10 +42,11 @@ class Parser:
                         if not f.endswith(self.po.valid_file_end):
                             continue
                         node = join(root,f)
-                        self.__add_dependencies(node) 
+                        self.__add_dependencies(node)
+                        self.__add_mapping(node)
                         self.__add_structure(key, node)
-
-
+    
+        self.__handle_wildcard()
         self.__create_text_repr_file()
     
     def __read_strct_file(self):
@@ -62,7 +65,7 @@ class Parser:
             makedirs(self.po.output_dir_path)
         
         repr_file = join(self.po.output_dir_path,self.po.text_repr_name)
-        with open(repr_file, "w") as rf:
+        with open(repr_file, "w") as rf: 
             
             for key, values in self.po.structure.items():
                 rf.write(key + "\n")
@@ -75,6 +78,7 @@ class Parser:
                 rf.write("\n\n")
 
     def __add_dependencies(self, node):
+        has_wildcard = False
         source = pkg_resources.resource_string(__name__, node)
         ast = parse.parse(source)
 
@@ -82,32 +86,48 @@ class Parser:
         for imp in ast.imports:
             if not imp.path.startswith(self.po.valid_import_start):
                 continue
-            dependencies.append(imp.path.replace(".", "/"))
+
+            if imp.wildcard:
+                has_wildcard = True
+                path = imp.path + "*"
+                dependencies.append(path.replace(".", "/"))
+            else:
+                dependencies.append(imp.path.replace(".", "/"))
 
         node = node.replace(self.po.ignore_path,"",1)
+        node = node.replace('\\', "/")
         self.po.dependency[node] = dependencies
+
+        if has_wildcard:
+            self.node_with_wildcard.append(node)
 
     def __add_structure(self, key, node):
         node = node.replace(self.po.ignore_path,"",1)
+        node = node.replace('\\', "/")
         self.po.structure[key].append(node)
+    
+    def __add_mapping(self,node):
+        node = node.replace(self.po.ignore_path,"",1)
+        node = node.replace('\\', "/")
+        node = node.replace(self.po.valid_file_end, "")
 
-#if __name__ == '__main__':
-    # for DesignPatterns
-    # obj = ParseObject()
-    # obj.set_strct_file_path('designPattern_strct.txt')
-    # obj.set_path_to_ignore('DesignPatterns-master/src/')
-    # obj.set_default_pkg_name('')
-    # obj.set_valid_file_end('.java')
-    # obj.set_text_repr_name('designPattern_repr.txt')
-    # obj.set_valid_import_start('patterns')
-    # Parser(obj).parse()
+        if not node in self.po.node_to_num:
+            self.po.node_to_num[node] = self.node_count
+            self.node_count += 1
 
-    # for easyExcel
-    # obj = ParseObject()
-    # obj.set_strct_file_path('easyExcel_strct.txt')
-    # obj.set_path_to_ignore('easyexcel-master/src/main/java/')
-    # obj.set_default_pkg_name('/excel')
-    # obj.set_valid_file_end('.java')
-    # obj.set_text_repr_name('easyExcel_repr.txt')
-    # obj.set_valid_import_start('com.alibaba')
-    # Parser(obj).parse()
+    def __handle_wildcard(self):
+        for n in self.node_with_wildcard:
+            dependencies = self.po.dependency[n]
+            newDep = []
+
+            for d in dependencies:
+                if not d.endswith('*'):
+                    newDep.append(d)
+                    continue
+                
+                d = d.replace("*", "")
+                for key in self.po.dependency.keys():
+                    if key.startswith(d):
+                        newDep.append(key.replace(self.po.valid_file_end,""))
+
+            self.po.dependency[n] = newDep
