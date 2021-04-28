@@ -4,10 +4,11 @@ from population import Population
 from individual import Individual
 from parse import Parser
 from parse_object import ParseObject
+from converter import dependency_text_to_numerical
 
 
 
-def get_dependency(file_path, ignore_path, pkg_name, repr_name, import_start):
+def get_parsed_object(file_path, ignore_path, pkg_name, repr_name, import_start):
     obj = ParseObject()
     obj.set_strct_file_path(file_path)
     obj.set_path_to_ignore(ignore_path)
@@ -16,7 +17,7 @@ def get_dependency(file_path, ignore_path, pkg_name, repr_name, import_start):
     obj.set_text_repr_name(repr_name)
     obj.set_valid_import_start(import_start)
     Parser(obj).parse()
-    return obj.dependency, obj.structure
+    return obj
 
 
 def run_GA(dependency, structure):
@@ -61,17 +62,17 @@ if __name__ == "__main__":
               'EX: easyexcel-master or DesignPatterns-master')
     else:
         if sys.argv[1].lower() == 'easyexcel-master':
-            dependency, structure = get_dependency('easyExcel_strct.txt', 'easyexcel-master/src/main/java/',
+            obj = get_parsed_object('easyExcel_strct.txt', 'easyexcel-master/src/main/java/',
                                                     '/excel', 'easyExcel_repr.txt', 'com.alibaba')
-            # TODO: map_dependency()
-            run_GA(dependency, structure)
+            num_dep = dependency_text_to_numerical(obj)
+            run_GA(num_dep, obj.structure)
             # TODO: show_result
 
         elif sys.argv[1].lower() == 'designpatterns-master':
-            dependency, structure = get_dependency('designPattern_strct.txt', 'DesignPatterns-master/src/',
+            obj = get_parsed_object('designPattern_strct.txt', 'DesignPatterns-master/src/',
                                                     '', 'designPattern_repr.txt', 'patterns')
-            # TODO: map_dependency()
-            run_GA(dependency, structure)
+            num_dep = dependency_text_to_numerical(obj)
+            run_GA(num_dep, obj.structure)
             # TODO: show_result()
         else:
             print('ERROR: Please input a valid source code path!\n'
