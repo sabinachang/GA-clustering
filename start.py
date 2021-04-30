@@ -42,13 +42,13 @@ def print_best_structure(obj, best_ind):
                 print(">>\t\t\t{}".format(num_to_node[j + 1]))
 
 
-def run_GA(dependency):
+def run_GA(dependency, k=23):
     num_nodes = len(dependency)
     pop_size = num_nodes * 10  # TODO: tune
-    stop_generations = 1000  # num_nodes * 200
+    stop_generations = 500 # num_nodes * 200
     mutation_rate = 0.01  # TODO: tune
     # k, target number of clusters
-    k = 23  # TODO: tune
+    # k = 23  # TODO: tune
 
     print("GA Settings:")
     print(
@@ -59,12 +59,12 @@ def run_GA(dependency):
     while not pop.finished or pop.generations < stop_generations:
         pop.natural_selection()
         pop.generate_new_population()
-        if pop.generations % 5 == 0:
+        if pop.generations % 10 == 0:
             pop.evaluate()
             pop.print_population_status()
     end = time.time()
     print(end - start)
-    return pop.overall_best_ind
+    return pop.overall_best_ind, pop.overall_max_fitness
 
 
 def fitness_test():
@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
             run_GA(num_dep)
 
-            best_ind = run_GA(num_dep)
+            best_ind, best_fitness = run_GA(num_dep)
 
             print_best_structure(obj, best_ind)
 
@@ -112,7 +112,13 @@ if __name__ == "__main__":
 
             print_init_structure(obj)
 
-            best_ind = run_GA(num_dep)
+            best_fitness = 0.0
+            best_ind = None
+            for k in range(15, 25):
+                ind, fitness  = run_GA(num_dep, k)
+                if fitness > best_fitness:
+                    best_ind = ind
+                    best_fitness = fitness
 
             print_best_structure(obj, best_ind)
 

@@ -45,14 +45,15 @@ class Population:
     # Natural selection using Roulette Wheel
     def roulette_wheel_selection(self, fitness_list, min_fitness, max_fitness):
         pop_size = len(self.population)
-        if max_fitness > min_fitness:  # TODO: if not normalizing can avoid local max?
-            # if -1 > min_fitness:
-            # normalize by leaving out the least fit individual
-            mating_quota_list = [round((f - min_fitness) * pop_size * self.k) for f in fitness_list]
-        else:
-            # not normalize when they performs equally
-            # for not making everyone having a zero probability of being selected
-            mating_quota_list = [round(f * pop_size * self.k) for f in fitness_list]
+        # if max_fitness > min_fitness:  # TODO: if not normalizing can avoid local max?
+        #     # if -1 > min_fitness:
+        #     # normalize by leaving out the least fit individual
+        #     mating_quota_list = [round((f - min_fitness) * pop_size * self.k) for f in fitness_list]
+        # else:
+        #     # not normalize when they performs equally
+        #     # for not making everyone having a zero probability of being selected
+        #     mating_quota_list = [round(f * pop_size * self.k) for f in fitness_list]
+        mating_quota_list = [round(f * pop_size * self.k) for f in fitness_list]
         for i in range(len(self.population)):
             mating_candidates = [i] * mating_quota_list[i]
             self.mating_pool.extend(mating_candidates)
