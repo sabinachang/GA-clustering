@@ -4,7 +4,7 @@ import logging
 import sys
 import numpy as np
 import pandas as pd
-
+from multiprocessing import Pool
 
 # dummy dependency for testing revs.user_stars_mean * revs.user_review_num
 # assume dependency is a global dictionary, so that Individual object do not need to copy it every time.
@@ -97,7 +97,7 @@ class Individual:
     def calc_fitness(self, dependency):
         self.fitness = 0
         clusters = pd.Series(range(1, self.num_nodes+1)).groupby(self.encoding).apply(list).tolist()
-        logging.debug("Grouped encoding into {} clusters; target cluster size: {}".format(len(clusters), self.k))
+        # logging.debug("Grouped encoding into {} clusters; target cluster size: {}".format(len(clusters), self.k))
         actual_k = len(clusters)
 
         total_intra_conn = 0
@@ -105,14 +105,14 @@ class Individual:
 
         for curr_cluster in clusters:
             intra_score = self.calc_intra_conn(curr_cluster, dependency)
-            logging.debug("cluster intra:\t{}".format(intra_score))
+            # logging.debug("cluster intra:\t{}".format(intra_score))
             total_intra_conn += intra_score
 
         for i in range(actual_k-1):
             for j in range(i+1, actual_k):
                 inter_score = self.calc_inter_conn(clusters[i], clusters[j], dependency)
                 total_inter_conn += inter_score
-                logging.debug("cluster {} {} inter:\t{}".format(i + 1, j + 1, inter_score))
+                # logging.debug("cluster {} {} inter:\t{}".format(i + 1, j + 1, inter_score))
 
         if total_intra_conn > 0:
             total_intra_conn /= actual_k
@@ -122,7 +122,7 @@ class Individual:
         mq = total_intra_conn - total_inter_conn
         # normalize MQ to non-negative value for wheel selection easiness
         self.fitness = mq+1
-        logging.debug("fitness score: {}".format(self.fitness))
+        # logging.debug("fitness score: {}".format(self.fitness))
 
     def __repr__(self):
         return ''.join([str(i) for i in self.encoding]) + " -> fitness: " + str(self.fitness)

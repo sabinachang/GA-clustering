@@ -8,6 +8,7 @@ class ParseObject:
 
         # mapping each node to a number
         self.node_to_num = {}
+        self.num_to_node = {}
         
         self.ignore_path = ""
         self.valid_import_start = ""

@@ -4,8 +4,8 @@ from population import Population
 from individual import Individual
 from parse import Parser
 from parse_object import ParseObject
-from converter import dependency_text_to_numerical
-
+from converter import dependency_text_to_numerical, encoding_initial_structure
+import time
 
 
 def get_parsed_object(file_path, ignore_path, pkg_name, repr_name, import_start):
@@ -20,21 +20,46 @@ def get_parsed_object(file_path, ignore_path, pkg_name, repr_name, import_start)
     return obj
 
 
+def print_init_structure(obj):
+    ind = Individual(len(obj.dependency), 1)
+    ind.encoding = encoding_initial_structure(obj)
+    ind.k = ind.encoding[-1]
+    ind.calc_fitness(num_dep)
+    print(">>{}: before->modularization {}".format(sys.argv[1], ind.fitness))
+    for key, value in obj.structure.items():
+        print(">>{}:".format(key))
+        for node in value:
+            print(">>\t\t\t{}".format(node))
+
+
+def print_best_structure(obj, best_ind):
+    num_to_node = {v: k for k, v in obj.node_to_num.items()}
+    print(">>{}: after->modularization {}".format(sys.argv[1], best_ind.fitness))
+    for i in range(1, best_ind.k+1):
+        print(">>cluster {}:".format(i))
+        for j in range(0, len(best_ind.encoding)):
+            if best_ind.encoding[j] == i:
+                print(">>\t\t\t{}".format(num_to_node[j+1]))
+
+
 def run_GA(dependency):
     num_nodes = len(dependency)
-    pop_size = num_nodes * 10   # TODO: tune
+    pop_size = num_nodes * 10  # TODO: tune
     stop_generations = num_nodes * 200
-    mutation_rate = 0.02    # TODO: tune
+    mutation_rate = 0.02  # TODO: tune
     # k, target number of clusters
     k = 4  # TODO: tune
 
     pop = Population(pop_size, num_nodes, mutation_rate, k, stop_generations, dependency)
-
+    start = time.time()
     while not pop.finished or pop.generations < stop_generations:
         pop.natural_selection()
         pop.generate_new_population()
         pop.evaluate()
         pop.print_population_status()
+    end = time.time()
+    print(end-start)
+    return pop.best_ind
 
 
 def fitness_test():
@@ -45,7 +70,7 @@ def fitness_test():
 
 
 def test_normalization():
-    ind1, ind2, ind3 = Individual(7, 3), Individual(7, 3), Individual(7,3)
+    ind1, ind2, ind3 = Individual(7, 3), Individual(7, 3), Individual(7, 3)
     ind1.encoding = [1, 1, 2, 1, 2, 3, 3]
     ind2.encoding = [3, 3, 1, 3, 1, 2, 2]
     ind3.encoding = [2, 2, 3, 2, 3, 1, 1]
@@ -63,20 +88,29 @@ if __name__ == "__main__":
     else:
         if sys.argv[1].lower() == 'easyexcel-master':
             obj = get_parsed_object('easyExcel_strct.txt', 'easyexcel-master/src/main/java/',
-                                                    '/excel', 'easyExcel_repr.txt', 'com.alibaba')
+                                    '/excel', 'easyExcel_repr.txt', 'com.alibaba')
+            obj.num_to_node = {v: k for k, v in obj.node_to_num.items()}
             num_dep = dependency_text_to_numerical(obj)
+
+            print_init_structure(obj)
+
             run_GA(num_dep)
-            # TODO: show_result
+
+            best_ind = run_GA(num_dep)
+
+            print_best_structure(obj, best_ind)
 
         elif sys.argv[1].lower() == 'designpatterns-master':
             obj = get_parsed_object('designPattern_strct.txt', 'DesignPatterns-master/src/',
-                                                    '', 'designPattern_repr.txt', 'patterns')
-
+                                    '', 'designPattern_repr.txt', 'patterns')
             num_dep = dependency_text_to_numerical(obj)
-            run_GA(num_dep)
-            # TODO: show_result()
+
+            print_init_structure(obj)
+
+            best_ind = run_GA(num_dep)
+
+            print_best_structure(obj, best_ind)
+
         else:
             print('ERROR: Please input a valid source code path!\n'
                   'EX: easyexcel-master or DesignPatterns-master')
-
-
