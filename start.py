@@ -35,31 +35,36 @@ def print_init_structure(obj):
 def print_best_structure(obj, best_ind):
     num_to_node = {v: k for k, v in obj.node_to_num.items()}
     print(">>{}: after->modularization {}".format(sys.argv[1], best_ind.fitness))
-    for i in range(1, best_ind.k+1):
+    for i in range(1, best_ind.k + 1):
         print(">>cluster {}:".format(i))
         for j in range(0, len(best_ind.encoding)):
             if best_ind.encoding[j] == i:
-                print(">>\t\t\t{}".format(num_to_node[j+1]))
+                print(">>\t\t\t{}".format(num_to_node[j + 1]))
 
 
 def run_GA(dependency):
     num_nodes = len(dependency)
     pop_size = num_nodes * 10  # TODO: tune
-    stop_generations = num_nodes * 200
-    mutation_rate = 0.02  # TODO: tune
+    stop_generations = 1000  # num_nodes * 200
+    mutation_rate = 0.01  # TODO: tune
     # k, target number of clusters
-    k = 4  # TODO: tune
+    k = 23  # TODO: tune
+
+    print("GA Settings:")
+    print(
+        "N: {}, population size: {}, mutation rate: {}, cluster size: {}".format(num_nodes, pop_size, mutation_rate, k))
 
     pop = Population(pop_size, num_nodes, mutation_rate, k, stop_generations, dependency)
     start = time.time()
     while not pop.finished or pop.generations < stop_generations:
         pop.natural_selection()
         pop.generate_new_population()
-        pop.evaluate()
-        pop.print_population_status()
+        if pop.generations % 5 == 0:
+            pop.evaluate()
+            pop.print_population_status()
     end = time.time()
-    print(end-start)
-    return pop.best_ind
+    print(end - start)
+    return pop.overall_best_ind
 
 
 def fitness_test():
