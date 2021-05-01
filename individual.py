@@ -4,7 +4,6 @@ import logging
 import sys
 import numpy as np
 import pandas as pd
-from multiprocessing import Pool
 
 # dummy dependency for testing revs.user_stars_mean * revs.user_review_num
 # assume dependency is a global dictionary, so that Individual object do not need to copy it every time.
@@ -28,7 +27,6 @@ from multiprocessing import Pool
 #     15: [],
 #     16: []
 # }
-
 
 test_dependency = {
     0: [1, 2, 3],
@@ -55,11 +53,15 @@ class Individual:
     """
         Individual in the population
     """
-    def __init__(self, size, k):
+
+    def __init__(self, size, k, defaultEncoding=False):
         self.k = k
         self.num_nodes = size
         self.fitness = 0
-        self.encoding = self.generate_random_cluster(size, k)
+        if defaultEncoding == True:
+            self.encoding = [None] * size
+        else:
+            self.encoding = self.generate_random_cluster(size, k)
         self.consistent_algorithm()
 
     # # group classes by their cluster number
@@ -80,7 +82,7 @@ class Individual:
         if u == 0:
             return 0
         ni = len(cluster_)
-        return u/(ni**2)
+        return u / (ni ** 2)
 
     @staticmethod
     def calc_inter_conn(cluster_i, cluster_j, dependency):
@@ -91,12 +93,38 @@ class Individual:
                     e += 1
         if e == 0:
             return 0
-        return (e*0.5)/len(cluster_i)/len(cluster_i)
+        return (e * 0.5) / len(cluster_i) / len(cluster_i)
+
+    @staticmethod
+    def calc_intra_conn2(cluster_, dependency):
+        u = 0
+        x = set(cluster_)
+        for class_ in cluster_:
+            y = set(dependency[class_])
+            intersection = x & y  # or, equivalently
+            # common_elements = train_set.intersection(test_set)
+            u += len(intersection)
+        if u == 0:
+            return 0
+        ni = len(cluster_)
+        return u / (ni ** 2)
+
+    @staticmethod
+    def calc_inter_conn2(cluster_i, cluster_j, dependency):
+        e = 0
+        for node_i in cluster_i:
+            x = set(dependency[node_i])
+            y = set(cluster_j)
+            intersection = x & y  # or, equivalently
+            e += len(intersection)
+        if e == 0:
+            return 0
+        return (e * 0.5) / len(cluster_i) / len(cluster_i)
 
     # NEW TODO: global dependency?
     def calc_fitness(self, dependency):
         self.fitness = 0
-        clusters = pd.Series(range(1, self.num_nodes+1)).groupby(self.encoding).apply(list).tolist()
+        clusters = pd.Series(range(1, self.num_nodes + 1)).groupby(self.encoding).apply(list).tolist()
         # logging.debug("Grouped encoding into {} clusters; target cluster size: {}".format(len(clusters), self.k))
         actual_k = len(clusters)
 
@@ -104,33 +132,34 @@ class Individual:
         total_inter_conn = 0
 
         for curr_cluster in clusters:
-            intra_score = self.calc_intra_conn(curr_cluster, dependency)
+            intra_score = self.calc_intra_conn2(curr_cluster, dependency)
             # logging.debug("cluster intra:\t{}".format(intra_score))
             total_intra_conn += intra_score
 
-        for i in range(actual_k-1):
-            for j in range(i+1, actual_k):
-                inter_score = self.calc_inter_conn(clusters[i], clusters[j], dependency)
+        for i in range(actual_k - 1):
+            for j in range(i + 1, actual_k):
+                inter_score = self.calc_inter_conn2(clusters[i], clusters[j], dependency)
                 total_inter_conn += inter_score
                 # logging.debug("cluster {} {} inter:\t{}".format(i + 1, j + 1, inter_score))
 
         if total_intra_conn > 0:
             total_intra_conn /= actual_k
         if total_inter_conn > 0:
-            total_inter_conn /= (0.5 * actual_k * (actual_k-1))
+            total_inter_conn /= (0.5 * actual_k * (actual_k - 1))
 
         mq = total_intra_conn - total_inter_conn
         # normalize MQ to non-negative value for wheel selection easiness
-        self.fitness = mq+1
+        self.fitness = mq + 1
         # logging.debug("fitness score: {}".format(self.fitness))
 
     def __repr__(self):
-        return ''.join([str(i) for i in self.encoding]) + " -> fitness: " + str(self.fitness)
+        return "fitness: " + str(self.fitness) + " -> " + ''.join([str(i) for i in self.encoding])
 
     '''
     This randomly generates an individual with the given size(i.e. number of nodes),
     in k clusters.
     '''
+
     @staticmethod
     def generate_random_cluster(size, k):
         cluster = []
@@ -171,6 +200,7 @@ class Individual:
     The crossover function selects pairs of individuals to be mated, 
     generating a third individual (child)
     '''
+
     def crossover(self, partner):
         ind_len = len(self.encoding)
         child = Individual(ind_len, self.k)
@@ -194,9 +224,10 @@ class Individual:
     Another crossover function
     Randomly pick up the crossover point and generate two children
     '''
+
     def crossover2(self, partner):
         ind_len = len(self.encoding)
-        child1, child2 = Individual(ind_len, self.k), Individual(ind_len, self.k)
+        child1, child2 = Individual(ind_len, self.k, True), Individual(ind_len, self.k, True)
         child1.encoding, child2.encoding = [], []
         crossPoint = random.randint(0, ind_len - 1)
         child1.encoding = self.encoding[:crossPoint] + partner.encoding[crossPoint:]
@@ -205,19 +236,95 @@ class Individual:
         return child1, child2
 
     '''
+    Another crossover function
+    Partially retain cluster structure of parents
+    '''
+    def crossover3(self, partner):
+        clusters1 = pd.Series(range(1, self.num_nodes + 1)).groupby(self.encoding).apply(list).tolist()
+        clusters2 = pd.Series(range(1, self.num_nodes + 1)).groupby(partner.encoding).apply(list).tolist()
+
+        child = Individual(self.num_nodes, self.k, True)
+        new_cluster_count = 1
+        while len(clusters1) > 0 or len(clusters2) > 0:
+            if len(clusters1) > 0 and len(clusters2) > 0:
+                which_parent = random.randint(1, 2)
+                swapped = False
+                if which_parent == 2:
+                    swapped = True
+                    tmp = clusters1
+                    clusters1 = clusters2
+                    clusters2 = tmp
+            elif len(clusters2) > 0:
+                clusters1 = clusters2
+
+            if len(clusters1) > 1:
+                cluster_opt = random.randint(0, len(clusters1) - 1)
+            else:
+                cluster_opt = 0
+            selected_genes = clusters1[cluster_opt]
+            # print(selected_genes)
+            for gene in selected_genes:
+                child.encoding[gene-1] = new_cluster_count
+            for j in range(len(clusters2)-1, -1):
+                cluster = clusters2[j]
+                for i in range(len(cluster) - 1, -1):
+                    if cluster[i] in selected_genes:
+                        del cluster[i]
+                if len(cluster) == 0:
+                    del clusters2[j]
+                else:
+                    clusters2[j] = cluster
+
+            # print("before: {}".format(len(clusters1)))
+            del clusters1[cluster_opt]
+            # print("after: {}".format(len(clusters1)))
+            new_cluster_count += 1
+            if new_cluster_count > self.k:
+                break
+            if swapped == True:
+                tmp = clusters1
+                clusters1 = clusters2
+                clusters2 = tmp
+
+        remaining_genes = []
+        # print("{},After selecting: {}".format(new_cluster_count, len(clusters1)))
+        for cluster in clusters1:
+            if new_cluster_count > self.k:
+                for idx in cluster:
+                    child.encoding[idx - 1] = self.k
+                continue
+            else:
+                for idx in cluster:
+                    child.encoding[idx - 1] = new_cluster_count
+                new_cluster_count += 1
+
+        # print("{}, After selecting 2: {}".format(new_cluster_count, len(clusters2)))
+        for cluster in clusters2:
+            if new_cluster_count > self.k:
+                for idx in cluster:
+                    child.encoding[idx - 1] = self.k
+                continue
+            else:
+                for idx in cluster:
+                    child.encoding[idx - 1] = new_cluster_count
+                new_cluster_count += 1
+
+        # print(child)
+        return child
+
+    '''
     Mutation: based on a mutation probability, 
     the function picks a new random character and replace a gene with it
     '''
     def mutate(self, mutation_rate):
         # code to mutate the individual here
-        # ind_len = len(self.encoding)
-        # p = random.uniform(0, 1)
-        # if p < mutation_rate:
-        #     random_ind = random.randint(0, ind_len - 1)
-        #     self.encoding[random_ind] = random.randint(1, self.k)
-        for i in range(len(self.encoding)):
-            if random.uniform(0, 1) < mutation_rate:
-                self.encoding[i] = random.randint(1, self.k)
+        p = random.uniform(0, 1)
+        if p < mutation_rate:
+            random_ind = random.randint(0, self.num_nodes - 1)
+            self.encoding[random_ind] = random.randint(1, self.k)
+        # for i in range(self.num_nodes):
+        #     if random.uniform(0, 1) < mutation_rate:
+        #         self.encoding[i] = random.randint(1, self.k)
 
     '''
     This tests the fitness function 

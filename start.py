@@ -35,31 +35,35 @@ def print_init_structure(obj):
 def print_best_structure(obj, best_ind):
     num_to_node = {v: k for k, v in obj.node_to_num.items()}
     print(">>{}: after->modularization {}".format(sys.argv[1], best_ind.fitness))
-    for i in range(1, best_ind.k+1):
+    for i in range(1, best_ind.k + 1):
         print(">>cluster {}:".format(i))
         for j in range(0, len(best_ind.encoding)):
             if best_ind.encoding[j] == i:
-                print(">>\t\t\t{}".format(num_to_node[j+1]))
+                print(">>\t\t\t{}".format(num_to_node[j + 1]))
 
 
-def run_GA(dependency):
+def run_GA(dependency, k=10):
     num_nodes = len(dependency)
     pop_size = num_nodes * 10  # TODO: tune
-    stop_generations = num_nodes * 200
-    mutation_rate = 0.02  # TODO: tune
+    stop_generations = 400 # num_nodes * 200
+    mutation_rate = 0.03  # TODO: tune
     # k, target number of clusters
-    k = 4  # TODO: tune
+
+    print("GA Settings:")
+    print(
+        "N: {}, population size: {}, mutation rate: {}, cluster size: {}".format(num_nodes, pop_size, mutation_rate, k))
 
     pop = Population(pop_size, num_nodes, mutation_rate, k, stop_generations, dependency)
     start = time.time()
     while not pop.finished or pop.generations < stop_generations:
         pop.natural_selection()
         pop.generate_new_population()
-        pop.evaluate()
-        pop.print_population_status()
+        if pop.generations % 5 == 0:
+            pop.evaluate()
+            pop.print_population_status()
     end = time.time()
-    print(end-start)
-    return pop.best_ind
+    print(end - start)
+    return pop.overall_best_ind, pop.overall_max_fitness
 
 
 def fitness_test():
@@ -96,7 +100,7 @@ if __name__ == "__main__":
 
             run_GA(num_dep)
 
-            best_ind = run_GA(num_dep)
+            best_ind, best_fitness = run_GA(num_dep)
 
             print_best_structure(obj, best_ind)
 
@@ -107,8 +111,14 @@ if __name__ == "__main__":
 
             print_init_structure(obj)
 
-            best_ind = run_GA(num_dep)
-
+            best_fitness = 0.0
+            best_ind = None
+            for k in range(23, 24):
+                ind, fitness = run_GA(num_dep)  # TODO: use variable k
+                # ind, fitness = run_GA(num_dep, k)
+                if fitness > best_fitness:
+                    best_ind = ind
+                    best_fitness = fitness
             print_best_structure(obj, best_ind)
 
         else:
