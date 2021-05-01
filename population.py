@@ -2,7 +2,9 @@ from individual import Individual
 import random
 import numpy as np
 import threading
+import multiprocessing as mp
 import copy
+import math
 
 
 class Population:
@@ -25,7 +27,7 @@ class Population:
         self.average_fitness = 0.0
         self.mating_pool = []
         self.dependency = dependency
-        self.new_population = []  # a placeholder for the new generation's population
+        # self.new_population = []  # a placeholder for the new generation's population
 
         # Initialize the population & Calculate the initial fitness
         for i in range(pop_size):
@@ -45,15 +47,14 @@ class Population:
     # Natural selection using Roulette Wheel
     def roulette_wheel_selection(self, fitness_list, min_fitness, max_fitness):
         pop_size = len(self.population)
-        # if max_fitness > min_fitness:  # TODO: if not normalizing can avoid local max?
-        #     # if -1 > min_fitness:
-        #     # normalize by leaving out the least fit individual
-        #     mating_quota_list = [round((f - min_fitness) * pop_size * self.k) for f in fitness_list]
-        # else:
-        #     # not normalize when they performs equally
-        #     # for not making everyone having a zero probability of being selected
-        #     mating_quota_list = [round(f * pop_size * self.k) for f in fitness_list]
-        mating_quota_list = [round(f * pop_size * self.k) for f in fitness_list]
+        if max_fitness > min_fitness:  # TODO: if not normalizing can avoid local max?
+            # normalize by leaving out the least fit individual
+            mating_quota_list = [math.ceil((f - min_fitness) * pop_size * self.k) for f in fitness_list]
+        else:
+            # not normalize when they performs equally
+            # for not making everyone having a zero probability of being selected
+            mating_quota_list = [math.ceil(f * pop_size * self.k) for f in fitness_list]
+        # mating_quota_list = [round(f * pop_size * self.k) for f in fitness_list]
         for i in range(len(self.population)):
             mating_candidates = [i] * mating_quota_list[i]
             self.mating_pool.extend(mating_candidates)
@@ -70,6 +71,7 @@ class Population:
                                       min_fitness,
                                       max_fitness)
 
+    '''
     # Generate the new population based on the natural selection function
     def generate_new_population(self):
         new_population = []
@@ -90,32 +92,35 @@ class Population:
             # choices[max_idx].consistent_algorithm()
             # new_population.append(choices[max_idx])
 
-            # # CROSSOVER2 two children version
-            # child1, child2 = parentA.crossover2(parentB)
-            # child1.mutate(self.mutation_rate)
-            # child1.calc_fitness(self.dependency)
-            # child2.mutate(self.mutation_rate)
-            # child2.calc_fitness(self.dependency)
-            #
-            # # TODO: DECISION choose the best one may cause a local max
-            # choices = [parentA, parentB, child1, child2]
-            # max_idx = np.argmax([c.fitness for c in choices])
-            # choices[max_idx].consistent_algorithm()
-            # new_population.append(choices[max_idx])
+            # CROSSOVER2 two children version
+            child1, child2 = parentA.crossover2(parentB)
+            #child1.mutate(self.mutation_rate)
+            child1.calc_fitness(self.dependency)
+            #child2.mutate(self.mutation_rate)
+            child2.calc_fitness(self.dependency)
 
-            # CROSSOVER3
-            child = parentA.crossover3(parentB)
-            child.mutate(self.mutation_rate)
-            child.normalize_encoding()
-            child.calc_fitness(self.dependency)
-            new_population.append(child)
+            # TODO: DECISION choose the best one may cause a local max
+            choices = [parentA, parentB, child1, child2]
+            max_idx = np.argmax([c.fitness for c in choices])
+            # choices[max_idx].consistent_algorithm()
+            choices[max_idx].mutate(self.mutation_rate)
+            choices[max_idx].normalize_encoding()
+            new_population.append(choices[max_idx])
+
+            # # CROSSOVER3
+            # child = parentA.crossover3(parentB)
+            # child.mutate(self.mutation_rate)
+            # child.normalize_encoding()
+            # child.calc_fitness(self.dependency)
+            # new_population.append(child)
 
         self.generations += 1
         self.population = new_population
     '''
 
-    def generate_new_population_threaded(self, iter, start_indice, end_indice, mating_pool, population):
+    def generate_new_population_proc(self, start_indice, end_indice, mating_pool, population):
         new_sub_population = []
+        # print(start_indice, end_indice)
         for i in range(start_indice, end_indice):
             # a, b = random.sample(self.mating_pool, 2)
             # parentA, parentB = self.population[a], self.population[b]
@@ -134,58 +139,54 @@ class Population:
             # choices[max_idx].consistent_algorithm()
             # new_population.append(choices[max_idx])
 
-            # # CROSSOVER2 two children version
-            # child1, child2 = parentA.crossover2(parentB)
-            # # TODO: Check when to mutate is better?
-            # # child1.mutate(self.mutation_rate)
-            # child1.calc_fitness(self.dependency)
-            # # child2.mutate(self.mutation_rate)
-            # child2.calc_fitness(self.dependency)
-            #
-            # # TODO: DECISION choose the best one may cause a local max
-            # choices = [parentA, parentB, child1, child2]
-            # max_idx = np.argmax([c.fitness for c in choices])
-            # # TODO
-            # # choices[max_idx].consistent_algorithm()
-            # choices[max_idx].mutate(self.mutation_rate)
-            # choices[max_idx].normalize_encoding()
-            # child2.calc_fitness(self.dependency)
-            # new_sub_population.append(choices[max_idx])
+            # CROSSOVER2 two children version
+            child1, child2 = parentA.crossover2(parentB)
+            # TODO: Check when to mutate is better?
+            # child1.mutate(self.mutation_rate)
+            child1.calc_fitness(self.dependency)
+            # child2.mutate(self.mutation_rate)
+            child2.calc_fitness(self.dependency)
 
-            # CROSSOVER3
-            child = parentA.crossover3(parentB)
-            child.mutate(self.mutation_rate)
-            child.normalize_encoding()
-            child.calc_fitness(self.dependency)
-            new_sub_population.append(child)
+            # TODO: DECISION choose the best one may cause a local max
+            choices = [parentA, parentB, child1, child2]
+            max_idx = np.argmax([c.fitness for c in choices])
+            # TODO
+            # choices[max_idx].consistent_algorithm()
+            choices[max_idx].mutate(self.mutation_rate)
+            choices[max_idx].normalize_encoding()
+            child2.calc_fitness(self.dependency)
+            new_sub_population.append(choices[max_idx])
 
-        self.new_population[iter] = new_sub_population
+            # # CROSSOVER3
+            # child = parentA.crossover3(parentB)
+            # child.mutate(self.mutation_rate)
+            # child.normalize_encoding()
+            # child.calc_fitness(self.dependency)
+            # new_sub_population.append(child)
+
+        # print(str(new_sub_population))
+        return new_sub_population
 
     # Generate the new population based on the natural selection function
     def generate_new_population(self):
 
-        thread_list = []
-        num_threads = 4
-        length_interval_population = len(self.population) // num_threads
-        for iter in range(num_threads):
-            self.new_population.append([])
+        num_proc = 4
+        length_interval_population = len(self.population) // num_proc
+        arg_map = []
+        for iter in range(num_proc):
             start = length_interval_population * iter
-            end = start + length_interval_population if (iter < num_threads - 1) else len(self.population)
-            t = threading.Thread(target=self.generate_new_population_threaded,
-                                 args=(
-                                     iter, start, end, copy.deepcopy(self.mating_pool), copy.deepcopy(self.population)))
-            thread_list.append(t)
+            end = start + length_interval_population if (iter < num_proc - 1) else len(self.population)
+            arg_map.append([start, end, self.mating_pool, self.population])
 
-        for thread in thread_list:
-            thread.start()
+        with mp.Pool(processes=num_proc) as pool:
+            results = pool.starmap(self.generate_new_population_proc, arg_map)
 
-        for thread in thread_list:
-            thread.join()
-
+        pool.join()
+        self.population = []
+        for result in results:
+            self.population.extend(result)
+        pool.close()
         self.generations += 1
-        self.population = [ind for bucket in self.new_population for ind in bucket]
-        self.new_population = []
-    '''
 
     '''
     Compute/Identify the current "most fit" individual within the population

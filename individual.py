@@ -112,9 +112,9 @@ class Individual:
     @staticmethod
     def calc_inter_conn2(cluster_i, cluster_j, dependency):
         e = 0
-        x = set(cluster_i)
         for node_i in cluster_i:
-            y = set(dependency[node_i])
+            x = set(dependency[node_i])
+            y = set(cluster_j)
             intersection = x & y  # or, equivalently
             e += len(intersection)
         if e == 0:
